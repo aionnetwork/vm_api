@@ -8,7 +8,7 @@ import main.java.org.aion.vm.api.exceptions.ClosedVirtualMachineException;
  * A {@code VirtualMachine} that is responsible for executing transactional logic on the blockchain.
  *
  * <p>A {@code VirtualMachine} receives an array {@link TransactionContext} objects, each of which
- * contains a specific {@link ExternalTransaction} in addition to the context in which that
+ * contains a specific {@link TransactionInterface} in addition to the context in which that
  * transaction is to be executed, and guarantees that the <u>logical ordering</u> of the transactions
  * is maintained.
  *
