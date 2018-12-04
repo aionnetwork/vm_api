@@ -13,6 +13,7 @@ public interface TransactionInterface {
 
     BigInteger getNonce();
 
+    //TODO: decide: BigInteger or byte[]?
     byte[] getValue();
 
     byte[] getData();
@@ -23,6 +24,7 @@ public interface TransactionInterface {
 
     long getEnergyPrice();
 
+    //TODO: should this be a byte[]? It is long everywhere else..
     byte[] getTimestamp();
 
     boolean isContractCreationTransaction();
