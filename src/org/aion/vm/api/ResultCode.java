@@ -18,6 +18,8 @@ public enum ResultCode {
 
     VM_INTERNAL_ERROR(-2, ResultCategory.FAILED),
 
+    FAILURE(1, ResultCategory.FAILED),
+
     VM_REJECTED(-1, ResultCategory.REJECTED),
 
     OUT_OF_ENERGY(2, ResultCategory.FAILED),
@@ -38,9 +40,7 @@ public enum ResultCode {
 
     UNCAUGHT_EXCEPTION(10, ResultCategory.FAILED),
 
-    ABORT(11, ResultCategory.FAILED),
-
-    FAILED(12, ResultCategory.FAILED);
+    ABORT(11, ResultCategory.FAILED);
 
     private enum ResultCategory {SUCCESS, REJECTED, FAILED }
 
@@ -75,7 +75,7 @@ public enum ResultCode {
         return this.value;
     }
 
-    public ResultCode fromInt(int code) {
+    public static ResultCode fromInt(int code) {
         ResultCode result = integerMapping.get(code);
         if (result == null) {
             throw new IllegalArgumentException("No ResultCode whose integer representation is: " + code);
