@@ -2,10 +2,12 @@ package main.java.org.aion.vm.api;
 
 import java.util.List;
 import main.java.org.aion.vm.api.interfaces.InternalTransactionInterface;
+import main.java.org.aion.vm.api.interfaces.KernelInterface;
 import main.java.org.aion.vm.api.utils.HexUtilities;
 
 public final class TransactionResult {
     private ExecutionSideEffects sideEffects;
+    private KernelInterface kernel;
     private ResultCode code;
     private byte[] output;
     private long energyRemaining;
@@ -19,6 +21,7 @@ public final class TransactionResult {
         this.code = ResultCode.SUCCESS;
         this.output = new byte[0];
         this.energyRemaining = 0;
+        this.kernel = null;
     }
 
     /**
@@ -34,6 +37,7 @@ public final class TransactionResult {
         this.code = code;
         this.output = output;
         this.energyRemaining = energyRemaining;
+        this.kernel = null;
     }
 
     public void addInternalTransactionsToSideEffects(List<InternalTransactionInterface> internalTransactions) {
@@ -54,6 +58,10 @@ public final class TransactionResult {
             throw new NullPointerException("Cannot set null result code.");
         }
         this.code = code;
+    }
+
+    public void setKernelInterface(KernelInterface kernel) {
+        this.kernel = kernel;
     }
 
     public void setOutput(byte[] output) {
@@ -78,6 +86,10 @@ public final class TransactionResult {
 
     public long getEnergyRemaining() {
         return this.energyRemaining;
+    }
+
+    public KernelInterface getKernelInterface() {
+        return this.kernel;
     }
 
     @Override
