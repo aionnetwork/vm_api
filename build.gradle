@@ -1,3 +1,5 @@
+ext.moduleName = 'aion.vm.api'
+
 apply plugin: 'java'
 apply plugin: 'idea'
 
