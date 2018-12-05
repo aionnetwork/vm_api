@@ -1,10 +1,10 @@
-package main.java.org.aion.vm.api;
+package org.aion.vm.api;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import main.java.org.aion.vm.api.interfaces.IExecutionLog;
-import main.java.org.aion.vm.api.interfaces.InternalTransactionInterface;
+import org.aion.vm.api.interfaces.IExecutionLog;
+import org.aion.vm.api.interfaces.InternalTransactionInterface;
 
 public final class ExecutionSideEffects {
     private List<InternalTransactionInterface> internalTransactions;

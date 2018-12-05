@@ -1,4 +1,4 @@
-package main.java.org.aion.vm.api.interfaces;
+package org.aion.vm.api.interfaces;
 
 /**
  * An internal transaction is a transaction spawned as a result of the execution of some other

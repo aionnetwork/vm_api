@@ -1,4 +1,4 @@
-package main.java.org.aion.vm.api.utils;
+package org.aion.vm.api.utils;
 
 /**
  * A class that provides basic hexadecimal-related functionality.

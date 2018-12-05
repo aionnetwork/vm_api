@@ -1,4 +1,4 @@
-package main.java.org.aion.vm.api.interfaces;
+package org.aion.vm.api.interfaces;
 
 public interface BloomFilter {
 

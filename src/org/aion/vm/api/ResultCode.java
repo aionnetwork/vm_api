@@ -1,4 +1,4 @@
-package main.java.org.aion.vm.api;
+package org.aion.vm.api;
 
 import java.util.HashMap;
 import java.util.Map;

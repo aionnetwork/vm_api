@@ -1,7 +1,7 @@
-package main.java.org.aion.vm.api.interfaces;
+package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
-import main.java.org.aion.vm.api.Address;
+import org.aion.vm.api.Address;
 
 public interface TransactionInterface {
 

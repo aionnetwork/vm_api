@@ -1,4 +1,4 @@
-package main.java.org.aion.vm.api.interfaces;
+package org.aion.vm.api.interfaces;
 
 /**
  * A very simple alternative to {@link java.util.concurrent.Future}, which still represents the

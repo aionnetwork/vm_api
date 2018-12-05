@@ -1,6 +1,6 @@
-package main.java.org.aion.vm.api.exceptions;
+package org.aion.vm.api.exceptions;
 
-import main.java.org.aion.vm.api.interfaces.VirtualMachine;
+import org.aion.vm.api.interfaces.VirtualMachine;
 
 /**
  * Thrown when an application attempts to invoke the {@code run()} method of a long-lived

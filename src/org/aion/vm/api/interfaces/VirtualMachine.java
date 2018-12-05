@@ -1,8 +1,8 @@
-package main.java.org.aion.vm.api.interfaces;
+package org.aion.vm.api.interfaces;
 
-import main.java.org.aion.vm.api.TransactionContext;
-import main.java.org.aion.vm.api.TransactionResult;
-import main.java.org.aion.vm.api.exceptions.ClosedVirtualMachineException;
+import org.aion.vm.api.TransactionContext;
+import org.aion.vm.api.TransactionResult;
+import org.aion.vm.api.exceptions.ClosedVirtualMachineException;
 
 /**
  * A {@code VirtualMachine} that is responsible for executing transactional logic on the blockchain.

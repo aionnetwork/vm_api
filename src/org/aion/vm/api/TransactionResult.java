@@ -1,9 +1,9 @@
-package main.java.org.aion.vm.api;
+package org.aion.vm.api;
 
 import java.util.List;
-import main.java.org.aion.vm.api.interfaces.InternalTransactionInterface;
-import main.java.org.aion.vm.api.interfaces.KernelInterface;
-import main.java.org.aion.vm.api.utils.HexUtilities;
+import org.aion.vm.api.interfaces.InternalTransactionInterface;
+import org.aion.vm.api.interfaces.KernelInterface;
+import org.aion.vm.api.utils.HexUtilities;
 
 public final class TransactionResult {
     private ExecutionSideEffects sideEffects;

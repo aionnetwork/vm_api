@@ -1,7 +1,7 @@
-package main.java.org.aion.vm.api;
+package org.aion.vm.api;
 
 import java.util.Arrays;
-import main.java.org.aion.vm.api.utils.HexUtilities;
+import org.aion.vm.api.utils.HexUtilities;
 
 public final class Address {
 
