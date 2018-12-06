@@ -1,6 +1,7 @@
 package org.aion.vm.api;
 
 import java.math.BigInteger;
+import org.aion.vm.api.interfaces.Address;
 
 public final class TransactionContext {
     private BigInteger blockDifficulty;
