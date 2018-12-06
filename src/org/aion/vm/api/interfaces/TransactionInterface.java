@@ -1,7 +1,5 @@
 package org.aion.vm.api.interfaces;
 
-import java.math.BigInteger;
-
 public interface TransactionInterface {
 
     byte[] getTransactionHash();
@@ -10,9 +8,8 @@ public interface TransactionInterface {
 
     Address getDestinationAddress();
 
-    BigInteger getNonce();
+    byte[] getNonce();
 
-    //TODO: decide: BigInteger or byte[]?
     byte[] getValue();
 
     byte[] getData();
@@ -23,7 +20,6 @@ public interface TransactionInterface {
 
     long getEnergyPrice();
 
-    //TODO: should this be a byte[]? It is long everywhere else..
     byte[] getTimestamp();
 
     boolean isContractCreationTransaction();
