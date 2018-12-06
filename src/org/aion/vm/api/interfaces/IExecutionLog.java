@@ -17,6 +17,6 @@ public interface IExecutionLog {
 
     byte[] getLogData();
 
-    BloomFilter getBloomFilterForLog();
+    IBloomFilter getBloomFilterForLog();
 
 }
