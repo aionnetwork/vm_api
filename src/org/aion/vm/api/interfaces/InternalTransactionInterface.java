@@ -18,4 +18,6 @@ public interface InternalTransactionInterface extends TransactionInterface {
 
     void markAsRejected();
 
+    byte[] getEncoded();
+
 }

@@ -1,6 +1,5 @@
 package org.aion.vm.api.interfaces;
 
-import org.aion.vm.api.TransactionContext;
 import org.aion.vm.api.TransactionResult;
 import org.aion.vm.api.exceptions.ClosedVirtualMachineException;
 

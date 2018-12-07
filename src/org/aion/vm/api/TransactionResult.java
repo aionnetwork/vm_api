@@ -2,13 +2,10 @@ package org.aion.vm.api;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.List;
-import org.aion.vm.api.interfaces.InternalTransactionInterface;
 import org.aion.vm.api.interfaces.KernelInterface;
 import org.aion.vm.api.utils.HexUtilities;
 
 public final class TransactionResult {
-    private ExecutionSideEffects sideEffects;
     private KernelInterface kernel;
     private ResultCode code;
     private byte[] output;
@@ -19,7 +16,6 @@ public final class TransactionResult {
      * with an empty byte array as its output and {@link ResultCode#SUCCESS} as its result code.
      */
     public TransactionResult() {
-        this.sideEffects = new ExecutionSideEffects();
         this.code = ResultCode.SUCCESS;
         this.output = new byte[0];
         this.energyRemaining = 0;
@@ -34,7 +30,6 @@ public final class TransactionResult {
      * @param energyRemaining The energy remaining after executing the transaction.
      */
     public TransactionResult(ResultCode code, long energyRemaining) {
-        this.sideEffects = new ExecutionSideEffects();
         this.code = code;
         this.energyRemaining = energyRemaining;
         this.output = new byte[0];
@@ -50,7 +45,6 @@ public final class TransactionResult {
      * @param output The output of executing the transaction.
      */
     public TransactionResult(ResultCode code, long energyRemaining, byte[] output) {
-        this.sideEffects = new ExecutionSideEffects();
         this.code = code;
         this.output = (output == null) ? new byte[0] : output;
         this.energyRemaining = energyRemaining;
@@ -63,10 +57,9 @@ public final class TransactionResult {
      * <p>The representation is partial because it only represents the {@link ResultCode}, the amount
      * of energy remaining, and the output.
      *
-     * <p>In particular, the {@link ExecutionSideEffects} and {@link KernelInterface} are not included
-     * in this representation, meaning these components of this object will be lost when the byte
-     * array representation is transformed back into a {@code TransactionResult} via the
-     * {@code fromBytes()} method.
+     * <p>In particular, the {@link KernelInterface} is not included in this representation, meaning
+     * these components of this object will be lost when the byte array representation is
+     * transformed back into a {@code TransactionResult} via the {@code fromBytes()} method.
      *
      * @return A partial byte array representation of this object.
      */
@@ -86,7 +79,7 @@ public final class TransactionResult {
      * via the {@code toBytes()} method.
      *
      * <p>The returned object will be constructed from the partial representation, which, because it
-     * is partial, will have an empty {@link ExecutionSideEffects} and no {@link KernelInterface}.
+     * is partial, will have no {@link KernelInterface}.
      *
      * @param bytes A partial byte array representation of a {@code TransactionResult}.
      * @return The {@code TransactionResult} object obtained from the byte array representation.
@@ -103,14 +96,6 @@ public final class TransactionResult {
         buffer.get(output);
 
         return new TransactionResult(code, energyRemaining, output);
-    }
-
-    public void addInternalTransactionsToSideEffects(List<InternalTransactionInterface> internalTransactions) {
-        this.sideEffects.addInternalTransactions(internalTransactions);
-    }
-
-    public void addSideEffects(ExecutionSideEffects sideEffects) {
-        this.sideEffects.mergeSideEffects(sideEffects);
     }
 
     public void setResultCodeAndEnergyRemaining(ResultCode code, long energyRemaining) {
@@ -135,10 +120,6 @@ public final class TransactionResult {
 
     public void setEnergyRemaining(long energyRemaining) {
         this.energyRemaining = energyRemaining;
-    }
-
-    public ExecutionSideEffects getExecutionSideEffects() {
-        return this.sideEffects;
     }
 
     public ResultCode getResultCode() {
@@ -167,8 +148,7 @@ public final class TransactionResult {
     public String toStringWithSideEffects() {
         return "TransactionResult { code = " + this.code
             + ", energy remaining = " + this.energyRemaining
-            + ", output = " + HexUtilities.bytesToHexString(this.output)
-            + ", side-effects = " + this.sideEffects + " }";
+            + ", output = " + HexUtilities.bytesToHexString(this.output) + " }";
     }
 
 }

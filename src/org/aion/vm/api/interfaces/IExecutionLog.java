@@ -18,4 +18,6 @@ public interface IExecutionLog {
 
     IBloomFilter getBloomFilterForLog();
 
+    byte[] getEncoded();
+
 }
