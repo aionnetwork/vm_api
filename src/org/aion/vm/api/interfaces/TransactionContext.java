@@ -1,5 +1,7 @@
 package org.aion.vm.api.interfaces;
 
+import java.math.BigInteger;
+
 public interface TransactionContext {
 
     TransactionSideEffects getSideEffects();
@@ -12,11 +14,7 @@ public interface TransactionContext {
 
     Address getMinerAddress();
 
-    DataWordStub getTransferValue();
-
-    DataWordStub getTransactionEnergyPrice();
-
-    DataWordStub getBlockDifficulty();
+    BigInteger getTransferValue();
 
     byte[] getTransactionData();
 
@@ -31,6 +29,10 @@ public interface TransactionContext {
     long getBlockEnergyLimit();
 
     long getTransactionEnergyLimit();
+
+    long getTransactionEnergyPrice();
+
+    long getBlockDifficulty();
 
     int getTransactionKind();
 
