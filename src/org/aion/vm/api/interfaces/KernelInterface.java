@@ -88,7 +88,7 @@ public interface KernelInterface {
      * @param address the account address
      * @return the nonce
      */
-    long getNonce(Address address);
+    BigInteger getNonce(Address address);
 
     /**
      * Increases the nonce of an account by 1.
@@ -96,6 +96,8 @@ public interface KernelInterface {
      * @param address the account address
      */
     void incrementNonce(Address address);
+
+    byte[] getBlockHashByNumber(long blockNumber);
 
     /**
      * Returns {@code true} if, and only if, the specified address has a nonce equal to the provided
@@ -105,7 +107,7 @@ public interface KernelInterface {
      * @param nonce The nonce to compare against the account's nonce.
      * @return True if the nonce of the address equals the given nonce.
      */
-    boolean accountNonceEquals(Address address, long nonce);
+    boolean accountNonceEquals(Address address, BigInteger nonce);
 
     /**
      * Returns {@code true} if, and only if, the specified address has funds that are greater than
