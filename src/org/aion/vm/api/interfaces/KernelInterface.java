@@ -9,6 +9,8 @@ public interface KernelInterface {
 
     //TODO: better name for this class?
 
+    void flush();
+
     /**
      * Creates an account with the specified address.
      *
@@ -96,6 +98,8 @@ public interface KernelInterface {
      * @param address the account address
      */
     void incrementNonce(Address address);
+
+    void deductEnergyCost(Address address, BigInteger energyCost);
 
     byte[] getBlockHashByNumber(long blockNumber);
 

@@ -6,11 +6,14 @@ public interface ResultCode {
 
     boolean isSuccess();
 
+    // Condition must be met: isRevert() == true => isFailed() == true
     boolean isFailed();
 
     boolean isRejected();
 
     boolean isFatal();
+
+    boolean isRevert();
 
     int toInt();
 
