@@ -153,5 +153,19 @@ public interface KernelInterface {
      */
     boolean isValidEnergyLimitForNonCreate(long energyLimit);
 
+    /**
+     * Returns {@code true} if, and only if, contract calls are able to be made into the specified
+     * contract address from whatever {@link VirtualMachine} is currently making this query.
+     *
+     * Pure balance transfers that do not run any code are always considered safe to do. Therefore
+     * if address is not a smart contract this method will always true {@code true}.
+     *
+     * It is the responsibility of the Kernel to track which {@link VirtualMachine} it is
+     * communicating with via this interface so that it can make this judgment correctly.
+     *
+     * @param address The address of a smart contract.
+     * @return True if this address can be invoked from the calling {@link VirtualMachine}.
+     */
+    boolean destinationAddressIsSafeForThisVM(Address address);
 
 }
