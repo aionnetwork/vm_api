@@ -11,6 +11,8 @@ public interface KernelInterface {
 
     void flush();
 
+    KernelInterface startTracking();
+
     /**
      * Creates an account with the specified address.
      *

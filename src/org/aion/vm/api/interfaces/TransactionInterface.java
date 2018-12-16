@@ -20,6 +20,8 @@ public interface TransactionInterface {
 
     long getEnergyPrice();
 
+    long getTransactionCost();
+
     byte[] getTimestamp();
 
     boolean isContractCreationTransaction();

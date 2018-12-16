@@ -6,6 +6,8 @@ public interface TransactionContext {
 
     TransactionSideEffects getSideEffects();
 
+    TransactionInterface getTransaction();
+
     Address getDestinationAddress();
 
     Address getSenderAddress();
@@ -27,8 +29,7 @@ public interface TransactionContext {
     long getBlockTimestamp();
 
     long getBlockEnergyLimit();
-
-    long getTransactionEnergyLimit();
+    long getTransactionEnergy();
 
     long getTransactionEnergyPrice();
 

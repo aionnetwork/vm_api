@@ -20,6 +20,13 @@ import org.aion.vm.api.exceptions.ClosedVirtualMachineException;
 public interface VirtualMachine {
 
     /**
+     * Sets the {@link KernelInterface} that this {@code VirtualMachine} uses to the provided kernel.
+     *
+     * @param kernel The new {@link KernelInterface}.
+     */
+    void setKernelInterface(KernelInterface kernel);
+
+    /**
      * Starts a long-lived {@code VirtualMachine}.
      *
      * <p>If the particular implementation is not a long-lived {@code VirtualMachine}, then this
