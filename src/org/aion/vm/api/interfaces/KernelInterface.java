@@ -59,6 +59,14 @@ public interface KernelInterface {
     void putStorage(Address address, byte[] key, byte[] value);
 
     /**
+     * Remove a key from the account's storage.
+     *
+     * @param address the account address
+     * @param key the storage key
+     */
+    void removeStorage(Address address, byte[] key);
+
+    /**
      * Get the value that is mapped to the key, for the given account.
      *
      * @param address the account address
