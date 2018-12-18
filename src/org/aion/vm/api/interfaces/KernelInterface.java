@@ -13,6 +13,10 @@ public interface KernelInterface {
 
     KernelInterface startTracking();
 
+    void refundAccount(Address address, BigInteger amount);
+
+    void payMiningFee(Address miner, BigInteger fee);
+
     /**
      * Creates an account with the specified address.
      *
