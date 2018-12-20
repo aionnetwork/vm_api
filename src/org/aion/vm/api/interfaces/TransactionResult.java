@@ -6,7 +6,7 @@ public interface TransactionResult {
 
     ResultCode getResultCode();
 
-    byte[] getOutput();
+    byte[] getReturnData();
 
     long getEnergyRemaining();
 
@@ -14,7 +14,7 @@ public interface TransactionResult {
 
     void setResultCode(ResultCode resultCode);
 
-    void setOutput(byte[] output);
+    void setReturnData(byte[] returnData);
 
     void setEnergyRemaining(long energyRemaining);
 

@@ -14,7 +14,7 @@ public interface TransactionInterface {
 
     byte[] getData();
 
-    byte getTransactionType();
+    byte getTargetVM();
 
     long getEnergyLimit();
 

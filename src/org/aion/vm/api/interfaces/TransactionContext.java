@@ -10,6 +10,8 @@ public interface TransactionContext {
 
     Address getDestinationAddress();
 
+    Address getContractAddress();
+
     Address getSenderAddress();
 
     Address getOriginAddress();

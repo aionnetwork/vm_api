@@ -1,6 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 public interface IBloomFilter {
+    int SIZE = 256;
 
     byte[] getBloomFilterBytes();
 

@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface IExecutionLog {
 
-    Address getLogSourceAddress();
+    Address getSourceAddress();
 
-    List<byte[]> getLogTopics();
+    List<byte[]> getTopics();
 
-    byte[] getLogData();
+    byte[] getData();
 
     IBloomFilter getBloomFilterForLog();
 

@@ -9,9 +9,11 @@ public interface KernelInterface {
 
     //TODO: better name for this class?
 
-    void flush();
+    void commit();
 
-    KernelInterface startTracking();
+    void commitTo(KernelInterface target);
+
+    KernelInterface makeChildKernelInterface();
 
     void refundAccount(Address address, BigInteger amount);
 
