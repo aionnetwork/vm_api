@@ -13,11 +13,25 @@ repositories {
     jcenter()
 }
 
-sourceSets { 
+def getCommitHash = { ->
+    def hashStdOut = new ByteArrayOutputStream()
+    exec {
+        commandLine "sh", "-c", "git log --pretty=format:%h | head -1"
+        standardOutput = hashStdOut
+    }
+
+    return hashStdOut.toString().trim()
+}
+
+sourceSets {
+
+    jar.baseName = 'vm-api-' + getCommitHash()
+
+    main {
+        java.srcDirs = ['src']
+    }
     test {
-        resources {
-            srcDirs = ['test']
-        }
+        java.srcDirs = ['test']
     }
 }
 
