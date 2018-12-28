@@ -3,21 +3,78 @@ package org.aion.vm.api.interfaces;
 import java.math.BigInteger;
 
 /**
- * An interface into the statefulness of the kernel.
+ * An interface for a {@link VirtualMachine} into the kernel.
+ *
+ * <p>This interface has some caveats both concerning how it must be implemented and how it must be
+ * used by a {@link VirtualMachine}.
+ *
+ * <p>In terms of implementation, the following must be true: - After a kernel interface calls
+ * {@code commitTo()}, it must still retain ALL of its state changes.
+ *
+ * <p>It is up to the discretion of the implementing class whether or not {@code commit()} causes
+ * the kernel interface that performs the action to lose its state changes or not.
+ *
+ * <p>In terms of how a {@link VirtualMachine} must use this class: - All verification checks on a
+ * transaction must be performed via this class. In particular, the following four methods must be
+ * used:
+ *
+ * <p>{@code accountNonceEquals()}: to check the sender's nonce. {@code accountBalanceIsAtLeast()}:
+ * to check for sufficient funds. {@code isValidEnergyLimitForCreate()}: to check the transaction
+ * energy limit for CREATE. {@code isValidEnergyLimitForNonCreate()}: to check the transaction
+ * energy limit otherwise.
+ *
+ * <p>- All internal calls must first call into the following method to determine whether or not the
+ * call can be made into the specified destination address:
+ *
+ * <p>{@code destinationAddressIsSafeForThisVM()}.
+ *
+ * <p>- Prior to running the transaction logic, the sender account must be deducted the full cost of
+ * the energy fees. This deduction MUST be done only by calling into this method:
+ *
+ * <p>{@code deductEnergyCost()}.
+ *
+ * <p>- After running the transaction logic, depending on the success of the logic, the sender
+ * account will be refunded for the energy it does not use. This refunding MUST be done only by
+ * calling into this method:
+ *
+ * <p>{@code refundAccount()}.
+ *
+ * <p>- After running the transaction logic, depending on whether the transaction is rejected or
+ * not, the miner must be paid its fees. These fees MUST be paid only by calling into this method:
+ *
+ * <p>{@code payMiningFee()}.
+ *
+ * <p>The reason that the {@link VirtualMachine} must use the above methods as specified is because
+ * the kernel may use some special logic in each of these cases depending on the context of the
+ * transaction, and this logic is a kernel-level concern not a VM concern. These explicit calls for
+ * these cases allow the kernel to gain control over each of these precisely defined events, which
+ * it may need.
  */
 public interface KernelInterface {
 
-    //TODO: better name for this class?
-
+    /** Flushes all state changes captured by this {@link KernelInterface} to its parent. */
     void commit();
 
+    /**
+     * Flushes all state changes captured by this {@link KernelInterface} to the specified target
+     * interface.
+     *
+     * @param target The kernel interface to receive the flushed state changes.
+     */
     void commitTo(KernelInterface target);
 
+    /**
+     * Spawns a new {@link KernelInterface} that is a direct child of this kernel interface.
+     *
+     * <p>A child kernel interface will query its parent if it does not have the query result
+     * already in its cache.
+     *
+     * <p>A child kernel interface will flush all of its state changes into its parent upon using
+     * the {@code commit()} method.
+     *
+     * @return A child kernel interface of this interface.
+     */
     KernelInterface makeChildKernelInterface();
-
-    void refundAccount(Address address, BigInteger amount);
-
-    void payMiningFee(Address miner, BigInteger fee);
 
     /**
      * Creates an account with the specified address.
@@ -39,7 +96,7 @@ public interface KernelInterface {
      * Sets the code of an account.
      *
      * @param address the account address
-     * @param code    the immortal code
+     * @param code the immortal code
      */
     void putCode(Address address, byte[] code);
 
@@ -55,8 +112,8 @@ public interface KernelInterface {
      * Put a key-value pair into the account's storage.
      *
      * @param address the account address
-     * @param key     the storage key
-     * @param value   the storage value
+     * @param key the storage key
+     * @param value the storage value
      */
     void putStorage(Address address, byte[] key, byte[] value);
 
@@ -72,13 +129,12 @@ public interface KernelInterface {
      * Get the value that is mapped to the key, for the given account.
      *
      * @param address the account address
-     * @param key     the storage key
+     * @param key the storage key
      */
     byte[] getStorage(Address address, byte[] key);
 
     /**
-     * Deletes an account.
-     * This is used to implement the self-destruct functionality.
+     * Deletes an account. This is used to implement the self-destruct functionality.
      *
      * @param address the account address
      */
@@ -96,7 +152,7 @@ public interface KernelInterface {
      * Adds/removes the balance of an account.
      *
      * @param address the account address
-     * @param delta   the change
+     * @param delta the change
      */
     void adjustBalance(Address address, BigInteger delta);
 
@@ -115,8 +171,42 @@ public interface KernelInterface {
      */
     void incrementNonce(Address address);
 
+    // TODO: can deduct & refund remove 'address' param and always use 'sender' (what about
+    // delegatecall?)
+
+    /**
+     * Deducts {@code energyCost} amount of Aion from the specified address.
+     *
+     * @param address The address that will pay for the specified energy cost.
+     * @param energyCost The energy cost.
+     */
     void deductEnergyCost(Address address, BigInteger energyCost);
 
+    /**
+     * Refunds {@code amount} amount of Aion to the specified address.
+     *
+     * @param address The address that will receive the refund.
+     * @param amount The amount to refund.
+     */
+    void refundAccount(Address address, BigInteger amount);
+
+    // TODO: should be able to remove address param from payMiningFee and grab the coinbase behind
+    // the scenes.
+
+    /**
+     * Pays {@code fee} amount of Aion to the specified miner's address.
+     *
+     * @param miner The address of the miner.
+     * @param fee The mining fee.
+     */
+    void payMiningFee(Address miner, BigInteger fee);
+
+    /**
+     * Returns the hash of the block whose block number is {@code blockNumber}.
+     *
+     * @param blockNumber The block number to query.
+     * @return The hash of the indicated block.
+     */
     byte[] getBlockHashByNumber(long blockNumber);
 
     /**
@@ -143,10 +233,10 @@ public interface KernelInterface {
      * Returns {@code true} if, and only if, the specified energy limit is a valid quantity for a
      * contract creation transaction.
      *
-     * This is a kernel-level concept, and the correct energy rules will be injected into the vm by
-     * the kernel-side implementation of this interface.
+     * <p>This is a kernel-level concept, and the correct energy rules will be injected into the vm
+     * by the kernel-side implementation of this interface.
      *
-     * This check should only be performed in exactly ONE place, immediately before an external
+     * <p>This check should only be performed in exactly ONE place, immediately before an external
      * transaction is actually run.
      *
      * @param energyLimit The energy limit to validate.
@@ -158,10 +248,10 @@ public interface KernelInterface {
      * Returns {@code true} if, and only if, the specified energy limit is a valid quantity for a
      * transaction that is not for contract creation.
      *
-     * This is a kernel-level concept, and the correct energy rules will be injected into the vm by
-     * the kernel-side implementation of this interface.
+     * <p>This is a kernel-level concept, and the correct energy rules will be injected into the vm
+     * by the kernel-side implementation of this interface.
      *
-     * This check should only be performed in exactly ONE place, immediately before an external
+     * <p>This check should only be performed in exactly ONE place, immediately before an external
      * transaction is actually run.
      *
      * @param energyLimit The energy limit to validate.
@@ -173,15 +263,14 @@ public interface KernelInterface {
      * Returns {@code true} if, and only if, contract calls are able to be made into the specified
      * contract address from whatever {@link VirtualMachine} is currently making this query.
      *
-     * Pure balance transfers that do not run any code are always considered safe to do. Therefore
-     * if address is not a smart contract this method will always true {@code true}.
+     * <p>Pure balance transfers that do not run any code are always considered safe to do.
+     * Therefore if address is not a smart contract this method will always true {@code true}.
      *
-     * It is the responsibility of the Kernel to track which {@link VirtualMachine} it is
+     * <p>It is the responsibility of the Kernel to track which {@link VirtualMachine} it is
      * communicating with via this interface so that it can make this judgment correctly.
      *
      * @param address The address of a smart contract.
      * @return True if this address can be invoked from the calling {@link VirtualMachine}.
      */
     boolean destinationAddressIsSafeForThisVM(Address address);
-
 }
