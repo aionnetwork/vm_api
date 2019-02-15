@@ -1,5 +1,7 @@
 package org.aion.vm.api.interfaces;
 
+import org.aion.type.api.interfaces.Address;
+
 public interface TransactionInterface {
 
     byte[] getTransactionHash();

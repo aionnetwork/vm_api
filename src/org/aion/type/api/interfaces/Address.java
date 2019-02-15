@@ -1,4 +1,4 @@
-package org.aion.vm.api.interfaces;
+package org.aion.type.api.interfaces;
 
 /** A {@value SIZE}-byte sized public-facing account address. */
 public interface Address {

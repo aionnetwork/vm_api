@@ -1,6 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
+import org.aion.type.api.interfaces.Address;
 
 /**
  * An interface into the statefulness of the kernel.
