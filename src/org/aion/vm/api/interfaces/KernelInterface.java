@@ -1,7 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
-import org.aion.type.Address;
+import org.aion.types.Address;
 
 /**
  * An interface for a {@link VirtualMachine} into the kernel.

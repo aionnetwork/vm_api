@@ -1,4 +1,4 @@
-package org.aion.type;
+package org.aion.types;
 
 import java.util.Arrays;
 import org.aion.interfaces.Bytesable;

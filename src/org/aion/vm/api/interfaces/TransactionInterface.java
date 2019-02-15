@@ -1,6 +1,6 @@
 package org.aion.vm.api.interfaces;
 
-import org.aion.type.Address;
+import org.aion.types.Address;
 
 /**
  * A transaction.
