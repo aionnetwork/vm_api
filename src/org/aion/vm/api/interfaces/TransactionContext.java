@@ -1,6 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
+import org.aion.type.generic.Address;
 
 /**
  * The contextual information required by a {@link VirtualMachine} relating to a specific
