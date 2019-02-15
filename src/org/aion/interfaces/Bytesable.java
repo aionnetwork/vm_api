@@ -1,4 +1,4 @@
-package org.aion.type.interfaces;
+package org.aion.interfaces;
 
 /** @author jin */
 public interface Bytesable<T> {

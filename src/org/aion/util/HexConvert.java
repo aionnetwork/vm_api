@@ -1,4 +1,4 @@
-package org.aion.type.util;
+package org.aion.util;
 
 public class HexConvert {
     private static final char[] hexArray = "0123456789abcdef".toCharArray();

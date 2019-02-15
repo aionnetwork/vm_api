@@ -1,13 +1,14 @@
-package org.aion.type.generic;
+package org.aion.type;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import org.aion.type.interfaces.Bytesable;
-import org.aion.type.util.HexConvert;
+import org.aion.interfaces.Bytesable;
+import org.aion.util.HexConvert;
 
-public class ByteArrayWrapper
+public final class ByteArrayWrapper
         implements Comparable<ByteArrayWrapper>, Serializable, Bytesable<ByteArrayWrapper> {
 
+    public static final ByteArrayWrapper ZERO = ByteArrayWrapper.wrap(new byte[] {0});
     private static final long serialVersionUID = -2937011296133778157L;
     private final byte[] data;
     private int hashCode;
@@ -20,6 +21,11 @@ public class ByteArrayWrapper
         this.hashCode = Arrays.hashCode(data);
     }
 
+    public static ByteArrayWrapper wrap(byte[] data) {
+        return new ByteArrayWrapper(data);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof ByteArrayWrapper)) {
             return false;
@@ -58,10 +64,6 @@ public class ByteArrayWrapper
         return new ByteArrayWrapper(bs);
     }
 
-    public static ByteArrayWrapper wrap(byte[] data) {
-        return new ByteArrayWrapper(data);
-    }
-
     /**
      * Checks if every byte in the array has the value 0.
      *
@@ -92,8 +94,6 @@ public class ByteArrayWrapper
         System.arraycopy(data, 0, bs, 0, length);
         return new ByteArrayWrapper(bs);
     }
-
-    public static final ByteArrayWrapper ZERO = ByteArrayWrapper.wrap(new byte[] {0});
 
     public byte[] getNoLeadZeroesData() {
         return HexConvert.stripLeadingZeroes(data);

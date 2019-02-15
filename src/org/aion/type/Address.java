@@ -1,8 +1,8 @@
-package org.aion.type.generic;
+package org.aion.type;
 
 import java.util.Arrays;
-import org.aion.type.interfaces.Bytesable;
-import org.aion.type.util.HexConvert;
+import org.aion.interfaces.Bytesable;
+import org.aion.util.HexConvert;
 
 /**
  * The address class is a byte array wrapper represent fixed-32bytes array for the kernel account
@@ -60,11 +60,6 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         setupData(hexByte);
     }
 
-    private void setupData(final byte[] in) {
-        this.address = in;
-        this.hashCode = Arrays.hashCode(in);
-    }
-
     public static Address wrap(final byte[] addr) {
         return new Address(addr);
     }
@@ -77,6 +72,20 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         return new Address(addr);
     }
 
+    public static Address ZERO_ADDRESS() {
+        return zeroAddr;
+    }
+
+    public static Address EMPTY_ADDRESS() {
+        return emptyAddr;
+    }
+
+    private void setupData(final byte[] in) {
+        this.address = in;
+        this.hashCode = Arrays.hashCode(in);
+    }
+
+    @Override
     public final String toString() {
         return HexConvert.bytesToHexString(address);
     }
@@ -85,10 +94,12 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         return ByteArrayWrapper.wrap(this.address);
     }
 
+    @Override
     public final byte[] toBytes() {
         return this.address;
     }
 
+    @Override
     public final Address clone() {
         if (this.address.length == 0) {
             return emptyAddr;
@@ -97,6 +108,7 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         }
     }
 
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof Address)) {
             return false;
@@ -106,10 +118,12 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         }
     }
 
+    @Override
     public int hashCode() {
         return this.hashCode;
     }
 
+    @Override
     public int compareTo(Address o) {
         return Arrays.compare(this.address, o.toBytes());
     }
@@ -118,16 +132,9 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         return Arrays.compare(this.address, o);
     }
 
+    @Override
     public final Address fromBytes(byte[] bs) {
         return new Address(bs);
-    }
-
-    public static Address ZERO_ADDRESS() {
-        return zeroAddr;
-    }
-
-    public static Address EMPTY_ADDRESS() {
-        return emptyAddr;
     }
 
     public boolean isEmptyAddress() {

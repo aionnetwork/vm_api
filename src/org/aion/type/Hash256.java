@@ -1,8 +1,8 @@
-package org.aion.type.generic;
+package org.aion.type;
 
 import java.util.Arrays;
-import org.aion.type.interfaces.Bytesable;
-import org.aion.type.util.HexConvert;
+import org.aion.interfaces.Bytesable;
+import org.aion.util.HexConvert;
 
 public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, Cloneable {
 
@@ -54,11 +54,6 @@ public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, C
         setupData(data);
     }
 
-    private void setupData(final byte[] in) {
-        this.hash = in;
-        this.hashCode = Arrays.hashCode(in);
-    }
-
     public static Hash256 wrap(final byte[] hash) {
         return new Hash256(hash);
     }
@@ -71,6 +66,16 @@ public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, C
         return new Hash256(hash);
     }
 
+    public static Hash256 ZERO_HASH() {
+        return zeroHash;
+    }
+
+    private void setupData(final byte[] in) {
+        this.hash = in;
+        this.hashCode = Arrays.hashCode(in);
+    }
+
+    @Override
     public final String toString() {
         return HexConvert.bytesToHexString(hash);
     }
@@ -93,6 +98,7 @@ public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, C
         }
     }
 
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof Hash256)) {
             return false;
@@ -102,6 +108,7 @@ public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, C
         }
     }
 
+    @Override
     public int hashCode() {
         return this.hashCode;
     }
@@ -157,9 +164,5 @@ public final class Hash256 implements Comparable<Hash256>, Bytesable<Hash256>, C
     @Override
     public final Hash256 fromBytes(byte[] bs) {
         return new Hash256(bs);
-    }
-
-    public static Hash256 ZERO_HASH() {
-        return zeroHash;
     }
 }

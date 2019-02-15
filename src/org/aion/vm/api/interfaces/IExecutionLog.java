@@ -1,7 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.util.List;
-import org.aion.type.generic.Address;
+import org.aion.type.Address;
 
 /**
  * A log that is emitted during the execution of a transaction.
