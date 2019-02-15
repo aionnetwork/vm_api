@@ -18,15 +18,6 @@ import org.aion.vm.api.exceptions.ClosedVirtualMachineException;
  * implementation to precisely define its level of thread safety.
  */
 public interface VirtualMachine {
-
-    /**
-     * Sets the {@link KernelInterface} that this {@code VirtualMachine} uses to the provided
-     * kernel.
-     *
-     * @param kernel The new {@link KernelInterface}.
-     */
-    void setKernelInterface(KernelInterface kernel);
-
     /**
      * Starts a long-lived {@code VirtualMachine}.
      *
@@ -50,10 +41,11 @@ public interface VirtualMachine {
      * <p>This method possibly runs asynchronously and returns its results to the caller via a non-
      * blocking {@link SimpleFuture} array.
      *
+     * @param kernel The {@link KernelInterface} representing the blockchain state for these transactions.
      * @param contexts The transaction contexts to execute.
      * @return The results of the execution.
      * @throws ClosedVirtualMachineException if no long-lived instance of this class currently
      *     exists.
      */
-    SimpleFuture<TransactionResult>[] run(TransactionContext[] contexts);
+    SimpleFuture<TransactionResult>[] run(KernelInterface kernel, TransactionContext[] contexts);
 }
