@@ -1,5 +1,12 @@
 ext.moduleName = 'aion.vm.api'
 
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = "network.aion"
+archivesBaseName = "vm-api4j"
+version = "0.3.3"
+
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -10,7 +17,26 @@ sourceCompatibility = 10
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
+    maven { url "https://oss.sonatype.org/content/groups/staging" }
+
     jcenter()
+
+    flatDir {
+        dirs './lib'
+    }
+}
+
+
+dependencies {
+    testCompile 'network.aion:util4j:0.3.3'
+    testCompile 'junit:junit:4.12'
+    testCompile 'pl.pragmatists:JUnitParams:1.1.1'
+}
+
+tasks.withType(JavaCompile) {
+   doFirst {
+      println "Args for for $name are $options.allCompilerArgs"
+   }
 }
 
 def getCommitHash = { ->
@@ -25,22 +51,87 @@ def getCommitHash = { ->
 
 sourceSets {
 
-    jar.baseName = 'vm-api-' + getCommitHash()
+//    jar.baseName = 'vm-api-' + getCommitHash()
 
     main {
-        java.srcDirs = ['src']
+        java.srcDirs = ['src/main/java']
     }
     test {
-        java.srcDirs = ['test']
+        java.srcDirs = ['src/test/java']
     }
-}
-
-dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.25'
-
-    testCompile 'junit:junit:4.12'
 }
 
 clean {
     delete 'build'
 }
+
+signing {
+    sign configurations.archives
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+    options.tags = ["implNote", "apiNote"]
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+//      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+//        authentication(userName: ossrhUsername, password: ossrhPassword)
+//      }
+
+            pom.project {
+                name 'vm-api4j'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'a vm-api module for the aion java kernel.'
+                url 'https://github.com/aionnetwork/vm_api'
+
+                scm {
+                    connection 'scm:git:https://github.com/aionnetwork/aion.git'
+                    developerConnection 'git:https://github.com/aionnetwork/aion.git'
+                    url 'https://github.com/aionnetwork/aion/tree/master'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'aion foundation dev'
+                        name 'aion foundation dev'
+                        email 'toengineering@aion.network'
+                    }
+                }
+            }
+        }
+    }
+}
+
