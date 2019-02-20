@@ -1,10 +1,10 @@
 package org.aion.interfaces.block;
 
 import java.util.List;
-import org.aion.interfaces.tx.TransactionExtend;
+import org.aion.interfaces.tx.Transaction;
 
 /** @author jin */
-public interface Block<TX extends TransactionExtend, BH extends BlockHeader> {
+public interface Block<TX extends Transaction, BH extends BlockHeader> {
 
     long getNumber();
 

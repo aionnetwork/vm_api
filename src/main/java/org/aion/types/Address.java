@@ -11,7 +11,7 @@ import org.aion.util.HexConvert;
  * @author jay
  */
 public final class Address implements Comparable<Address>, Bytesable<Address>, Cloneable {
-    private static final short SIZE = 32;
+    public static final short SIZE = 32;
     private static final Address zeroAddr = Address.wrap(new byte[SIZE]);
     private static final Address emptyAddr = Address.wrap(new byte[0]);
 

@@ -1,29 +1,24 @@
 package org.aion.interfaces.tx;
 
+import java.math.BigInteger;
 import org.aion.types.Address;
+import org.aion.vm.api.interfaces.TransactionInterface;
 
-public interface Transaction {
-    byte[] getTransactionHash();
+public interface Transaction extends Cloneable, TransactionInterface {
 
-    Address getSenderAddress();
+    byte[] getEncoded();
 
-    Address getDestinationAddress();
+    void setEncoded(byte[] _encodedData);
 
-    byte[] getNonce();
+    BigInteger getNonceBI();
 
-    byte[] getValue();
+    BigInteger getTimeStampBI();
 
-    byte[] getData();
+    Transaction clone();
 
-    byte getTargetVM();
+    long getNrgConsume();
 
-    long getEnergyLimit();
+    void setNrgConsume(long _nrg);
 
-    long getEnergyPrice();
-
-    long getTransactionCost();
-
-    byte[] getTimestamp();
-
-    boolean isContractCreationTransaction();
+    Address getContractAddress();
 }
