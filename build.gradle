@@ -1,7 +1,7 @@
 ext.moduleName = 'aion.vm.api'
 
 apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'signing'
 
 group = "network.aion"
 archivesBaseName = "vm-api4j"
@@ -65,9 +65,9 @@ clean {
     delete 'build'
 }
 
-signing {
-    sign configurations.archives
-}
+//signing {
+//    sign configurations.archives
+//}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
