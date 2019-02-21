@@ -18,46 +18,41 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
     private byte[] address;
     private int hashCode = 0;
 
-    public Address(final byte[] in) {
+    public Address(final byte[] in) throws IllegalArgumentException {
 
-        if (in == null) {
-            throw new IllegalArgumentException("Null input!");
-        }
-
-        if (in.length != SIZE && in.length != 0) {
+        if (in != null && (in.length == SIZE || in.length == 0)) {
+            setupData(in);
+        } else {
             throw new IllegalArgumentException();
         }
-
-        setupData(in);
     }
 
-    public Address(final ByteArrayWrapper in) {
+    public Address(final ByteArrayWrapper in) throws IllegalArgumentException {
 
-        if (in == null) {
-            throw new IllegalArgumentException("Null input!");
-        }
-
-        byte[] data = in.getData();
-        if (data == null || (data.length != SIZE && data.length != 0)) {
+        if (in != null) {
+            byte[] data = in.getData();
+            if (data != null && (data.length == SIZE || data.length == 0)) {
+                setupData(data);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } else {
             throw new IllegalArgumentException();
         }
-
-        setupData(data);
     }
 
-    public Address(final String in) {
+    public Address(final String in) throws IllegalArgumentException {
 
-        if (in == null) {
+        if (in != null) {
+            byte[] hexByte = HexConvert.hexStringToBytes(in);
+            if (hexByte != null && (hexByte.length == SIZE || hexByte.length == 0)) {
+                setupData(hexByte);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } else {
             throw new IllegalArgumentException();
         }
-
-        byte[] hexByte = HexConvert.hexStringToBytes(in);
-
-        if (hexByte.length != SIZE && hexByte.length != 0) {
-            throw new IllegalArgumentException();
-        }
-
-        setupData(hexByte);
     }
 
     public static Address wrap(final byte[] addr) {
@@ -144,4 +139,6 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
     public boolean isZeroAddress() {
         return Arrays.equals(address, zeroAddr.toBytes());
     }
+
+
 }
