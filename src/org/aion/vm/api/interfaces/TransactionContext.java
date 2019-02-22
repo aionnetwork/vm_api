@@ -34,14 +34,6 @@ public interface TransactionContext {
     Address getDestinationAddress();
 
     /**
-     * Returns the address of the contract that will be deployed if the corresponding transaction is
-     * a contract creation transaction.
-     *
-     * @return The newly deployed contract address or null if this transaction is not for create.
-     */
-    Address getContractAddress();
-
-    /**
      * Returns the address of the account that sent this transaction.
      *
      * @return The sender address.
