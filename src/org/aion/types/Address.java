@@ -13,7 +13,6 @@ import org.aion.util.HexConvert;
 public final class Address implements Comparable<Address>, Bytesable<Address>, Cloneable {
     public static final short SIZE = 32;
     private static final Address zeroAddr = Address.wrap(new byte[SIZE]);
-    private static final Address emptyAddr = Address.wrap(new byte[0]);
 
     private byte[] address;
     private int hashCode = 0;
@@ -21,43 +20,37 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
     public Address(final byte[] in) {
 
         if (in == null) {
-            throw new IllegalArgumentException("Null input!");
-        }
-
-        if (in.length != SIZE && in.length != 0) {
+            throw new NullPointerException();
+        } else if (in.length == SIZE) {
+            setupData(in);
+        } else {
             throw new IllegalArgumentException();
         }
-
-        setupData(in);
     }
 
     public Address(final ByteArrayWrapper in) {
 
-        if (in == null) {
-            throw new IllegalArgumentException("Null input!");
-        }
-
-        byte[] data = in.getData();
-        if (data == null || (data.length != SIZE && data.length != 0)) {
+        if (in == null || in.getData() == null) {
+            throw new NullPointerException();
+        } else if (in.getData().length == SIZE) {
+                setupData(in.getData());
+        } else {
             throw new IllegalArgumentException();
         }
-
-        setupData(data);
     }
 
     public Address(final String in) {
 
         if (in == null) {
-            throw new IllegalArgumentException();
+            throw new NullPointerException();
+        } else {
+            byte[] hexByte = HexConvert.hexStringToBytes(in);
+            if (hexByte.length == SIZE) {
+                setupData(hexByte);
+            } else {
+                throw new IllegalArgumentException();
+            }
         }
-
-        byte[] hexByte = HexConvert.hexStringToBytes(in);
-
-        if (hexByte.length != SIZE && hexByte.length != 0) {
-            throw new IllegalArgumentException();
-        }
-
-        setupData(hexByte);
     }
 
     public static Address wrap(final byte[] addr) {
@@ -74,10 +67,6 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
 
     public static Address ZERO_ADDRESS() {
         return zeroAddr;
-    }
-
-    public static Address EMPTY_ADDRESS() {
-        return emptyAddr;
     }
 
     private void setupData(final byte[] in) {
@@ -101,11 +90,7 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
 
     @Override
     public final Address clone() {
-        if (this.address.length == 0) {
-            return emptyAddr;
-        } else {
-            return new Address(Arrays.copyOf(this.address, SIZE));
-        }
+        return new Address(Arrays.copyOf(this.address, SIZE));
     }
 
     @Override
@@ -137,11 +122,9 @@ public final class Address implements Comparable<Address>, Bytesable<Address>, C
         return new Address(bs);
     }
 
-    public boolean isEmptyAddress() {
-        return Arrays.equals(address, emptyAddr.toBytes());
-    }
-
     public boolean isZeroAddress() {
         return Arrays.equals(address, zeroAddr.toBytes());
     }
+
+
 }

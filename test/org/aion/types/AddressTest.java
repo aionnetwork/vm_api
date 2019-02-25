@@ -21,7 +21,7 @@ public class AddressTest {
 
     private final byte[][] addrByte = { // Changes every time
         null,
-        Address.EMPTY_ADDRESS().toBytes(),
+        new byte[0],
         ByteUtil.hexStringToBytes(addrHex[2]),
         ByteUtil.hexStringToBytes(addrHex[3]),
         ByteUtil.hexStringToBytes(addrHex[4]),
@@ -66,6 +66,8 @@ public class AddressTest {
                 System.out.println("Test " + a + ": Valid " + tempHex.toString());
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
+            } catch (NullPointerException e) {
+                System.out.println("Test " + a + ": Null");
             }
         }
 
@@ -84,6 +86,8 @@ public class AddressTest {
                 System.out.println("Test " + a + ": Valid " + tempByte);
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
+            } catch (NullPointerException e) {
+                System.out.println("Test " + a + ": Null");
             }
         }
 
@@ -102,6 +106,8 @@ public class AddressTest {
                 System.out.println("Test " + a + ": Valid " + tempArray.toByteArrayWrapper());
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
+            } catch (NullPointerException e) {
+                System.out.println("Test " + a + ": Null");
             }
         }
     }
