@@ -10,6 +10,11 @@ sourceCompatibility = 10
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
+
+    // temprary using the staging repo as the test dependency
+    maven { url "https://oss.sonatype.org/content/groups/staging" }
+
+
     jcenter()
 }
 
@@ -39,6 +44,8 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'network.aion:util4j:0.3.3'
+    testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
 
 clean {
