@@ -96,4 +96,6 @@ public interface Repository<AS, BSB> extends RepositoryQuery<AS> {
 
     /** Performs batch transactions remove. */
     void removeTxBatch(Set<byte[]> pendingTx, boolean isPool);
+
+    byte getVMUsed(Address contract);
 }
