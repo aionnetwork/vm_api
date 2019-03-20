@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import org.aion.types.Address;
 import org.aion.types.ByteArrayWrapper;
 
-
 /**
  * Repository interface for individual account additions and updates.
  *
@@ -91,4 +90,25 @@ public interface RepositoryCache<AS, BSB> extends Repository<AS, BSB> {
     void removeStorageRow(Address address, ByteArrayWrapper key);
 
     void flushTo(Repository repo, boolean clearStateAfterFlush);
+
+    /**
+     * Flushes its state to other in such a manner that other receives sufficiently deep copies of
+     * its AccountState and {@link ContractDetails} objects.
+     *
+     * <p>If {@code clearStateAfterFlush == true} then this repository's state will be completely
+     * cleared after this method returns, otherwise it will retain all of its state.
+     *
+     * <p>A "sufficiently deep copy" is an imperfect deep copy (some original object references get
+     * leaked) but such that for all conceivable use cases these imperfections should go unnoticed.
+     * This is because doing something like copying the underlying data store makes no sense, both
+     * repositories should be accessing it, and there are some other cases where objects are defined
+     * as type {@link Object} and are cast to their expected types and copied, but will not be
+     * copied if they are not in fact their expected types. This is something to be aware of. Most
+     * of the imperfection results from the inability to copy {@link ByteArrayKeyValueStore} and
+     * SecureTrie perfectly or at all (in the case of the former), for the above reasons.
+     *
+     * @param other The repository that will consume the state of this repository.
+     * @param clearStateAfterFlush True if this repository should clear its state after flushing.
+     */
+    void flushCopiesTo(Repository other, boolean clearStateAfterFlush);
 }
