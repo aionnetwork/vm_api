@@ -80,19 +80,8 @@ public interface ContractDetails {
      */
     void decode(byte[] rlpCode, boolean fastCheck);
 
-    /**
-     * Sets the dirty value to dirty.
-     *
-     * @param dirty The dirty value.
-     */
-    void setDirty(boolean dirty);
-
-    /**
-     * Sets the deleted value to deleted.
-     *
-     * @param deleted the deleted value.
-     */
-    void setDeleted(boolean deleted);
+    /** Sets the deleted value to {@code true}. */
+    void delete();
 
     /**
      * Returns true iff the ContractDetails is dirty.
