@@ -69,6 +69,44 @@ public interface ContractDetails {
      */
     void setTransformedCode(byte[] transformedCode);
 
+    /**
+     * Returns the transaction type used to deploy the contract indicating which VM was used.
+     *
+     * @return the transaction type used to deploy the contract indicating which VM was used
+     */
+    byte getVmType();
+
+    /**
+     * Sets the transaction type value used to deploy the contract symbolizing the VM that manages
+     * the contract.
+     *
+     * @param vmType the transaction type value used to deploy the contract symbolizing the VM that
+     *     manages the contract
+     */
+    void setVmType(byte vmType);
+
+    /**
+     * Returns a byte array from contract storage representing an encoding of the object graph for
+     * the given contract.
+     *
+     * @return a byte array from contract storage representing an encoding of the object graph for
+     *     the given contract
+     */
+    byte[] getObjectGraph();
+
+    /**
+     * Saves the object graph for the given contract into contract storage.
+     *
+     * @param graph a byte array representing an encoding of the object graph for the given contract
+     */
+    void setObjectGraph(byte[] graph);
+
+    /**
+     * Sets the data source for storing the AVM object graph.
+     *
+     * @param objectGraphSource the new data source used for storing the object graph
+     */
+    void setObjectGraphSource(ByteArrayKeyValueStore objectGraphSource);
 
     /**
      * Returns the storage hash.

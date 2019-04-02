@@ -11,9 +11,6 @@ import org.aion.types.ByteArrayWrapper;
  */
 public interface RepositoryCache<AS, BSB> extends Repository<AS, BSB> {
 
-    // setters relating to user accounts
-    // -------------------------------------------------------------------------------
-
     /**
      * Creates a new account state in the database or cache.
      *
@@ -56,9 +53,6 @@ public interface RepositoryCache<AS, BSB> extends Repository<AS, BSB> {
      */
     BigInteger addBalance(Address address, BigInteger value);
 
-    // setters relating to contracts
-    // -----------------------------------------------------------------------------------
-
     /**
      * Stores code associated with an account.
      *
@@ -69,8 +63,23 @@ public interface RepositoryCache<AS, BSB> extends Repository<AS, BSB> {
      */
     void saveCode(Address address, byte[] code);
 
-    // setters relating to storage
-    // -------------------------------------------------------------------------------------
+    /**
+     * Sets the transaction type value used to deploy the contract symbolizing the VM that manages
+     * the contract.
+     *
+     * @param contract the account address
+     * @param vmType the transaction type value used to deploy the contract symbolizing the VM that
+     *     manages the contract
+     */
+    void saveVmType(Address contract, byte vmType);
+
+    /**
+     * Saves the object graph for the given contract into contract storage.
+     *
+     * @param contract the account address
+     * @param graph a byte array representing an encoding of the object graph for the given contract
+     */
+    void saveObjectGraph(Address contract, byte[] graph);
 
     /**
      * Store the given data at the given key in the account associated with the given address.

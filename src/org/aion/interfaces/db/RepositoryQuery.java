@@ -7,12 +7,8 @@ import java.util.Map;
 import org.aion.types.Address;
 import org.aion.types.ByteArrayWrapper;
 
-
 /** Repository interface for information retrieval. */
 public interface RepositoryQuery<AS> {
-
-    // getters relating to user accounts
-    // -------------------------------------------------------------------------------
 
     /**
      * Checks if the database contains an account state associated with the given address.
@@ -60,9 +56,6 @@ public interface RepositoryQuery<AS> {
      */
     BigInteger getNonce(Address address);
 
-    // getters relating to contracts
-    // -----------------------------------------------------------------------------------
-
     /**
      * Checks if the database contains contract details associated with the given address.
      *
@@ -76,8 +69,8 @@ public interface RepositoryQuery<AS> {
      * Retrieves the contract details of the account associated with the given address.
      *
      * @param addr the address of the account of interest
-     * @return a {@link ContractDetails} object representing the contract details
-     *     as are stored in the database or cache
+     * @return a {@link ContractDetails} object representing the contract details as are stored in
+     *     the database or cache
      */
     ContractDetails getContractDetails(Address addr);
 
@@ -97,8 +90,22 @@ public interface RepositoryQuery<AS> {
      */
     byte[] getTransformedCode(Address address);
 
-    // getters relating to storage
-    // -------------------------------------------------------------------------------------
+    /**
+     * Returns the transaction type used to deploy the contract indicating which VM was used.
+     *
+     * @return the transaction type used to deploy the contract indicating which VM was used
+     */
+    byte getVmType(Address contract);
+
+    /**
+     * Returns a byte array from contract storage representing an encoding of the object graph for
+     * the given contract.
+     *
+     * @param contract the account address
+     * @return a byte array from contract storage representing an encoding of the object graph for
+     *     the given contract
+     */
+    byte[] getObjectGraph(Address contract);
 
     /**
      * Retrieves the entries for the specified key values stored at the account associated with the
