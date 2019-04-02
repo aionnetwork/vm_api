@@ -110,6 +110,24 @@ public interface KernelInterface {
     byte[] getCode(Address address);
 
     /**
+     * Saves the object graph for the given contract into contract storage.
+     *
+     * @param contract the account address
+     * @param graph a byte array representing an encoding of the object graph for the given contract
+     */
+    void putObjectGraph(Address contract, byte[] graph);
+
+    /**
+     * Returns a byte array from contract storage representing an encoding of the object graph for
+     * the given contract.
+     *
+     * @param contract the account address
+     * @return a byte array from contract storage representing an encoding of the object graph for
+     *     the given contract
+     */
+    byte[] getObjectGraph(Address contract);
+
+    /**
      * Put a key-value pair into the account's storage.
      *
      * @param address the account address
