@@ -19,6 +19,4 @@ public interface Transaction extends Cloneable, TransactionInterface {
     long getNrgConsume();
 
     void setNrgConsume(long _nrg);
-
-    Address getContractAddress();
 }

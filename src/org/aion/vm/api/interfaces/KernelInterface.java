@@ -307,4 +307,41 @@ public interface KernelInterface {
      * @return True if this address can be invoked from the calling {@link VirtualMachine}.
      */
     boolean destinationAddressIsSafeForThisVM(Address address);
+
+    /**
+     * Returns the number of the block that this kernel interface is at.
+     *
+     * @return The block number.
+     */
+    long getBlockNumber();
+
+    /**
+     * Returns the timestamp of the block that this kernel interface is at.
+     *
+     * @return The block timestamp.
+     */
+    long getBlockTimestamp();
+
+    // TODO: block energy limit can probably be removed.
+
+    /**
+     * Returns the energy limit of the block that this kernel interface is at.
+     *
+     * @return The block energy limit.
+     */
+    long getBlockEnergyLimit();
+
+    /**
+     * Returns the difficulty of the block that this kernel interface is at.
+     *
+     * @return The block difficulty.
+     */
+    long getBlockDifficulty();
+
+    /**
+     * Returns the address of the miner of the block that this kernel interface is at.
+     *
+     * @return The miner's address.
+     */
+    Address getMinerAddress();
 }

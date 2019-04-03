@@ -35,17 +35,17 @@ public interface VirtualMachine {
     void shutdown();
 
     /**
-     * Executes the transactions contained in the array of contexts in such a way that the logical
-     * ordering of the transactions is preserved.
+     * Executes the transactions in such a way that the logical ordering of the transactions is
+     * preserved.
      *
      * <p>This method possibly runs asynchronously and returns its results to the caller via a non-
      * blocking {@link SimpleFuture} array.
      *
      * @param kernel The {@link KernelInterface} representing the blockchain state for these transactions.
-     * @param contexts The transaction contexts to execute.
+     * @param transactions The transactions to execute.
      * @return The results of the execution.
      * @throws ClosedVirtualMachineException if no long-lived instance of this class currently
      *     exists.
      */
-    SimpleFuture<TransactionResult>[] run(KernelInterface kernel, TransactionContext[] contexts);
+    SimpleFuture<TransactionResult>[] run(KernelInterface kernel, TransactionInterface[] transactions);
 }

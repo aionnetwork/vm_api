@@ -31,6 +31,12 @@ public interface TransactionInterface {
     Address getDestinationAddress();
 
     /**
+     * Returns the address of the contract that this transaction will create.
+     *
+     * @return The destination address.
+     */ Address getContractAddress();
+
+    /**
      * Returns the nonce of this transaction, which is the nonce of the sender account.
      *
      * @return The sender's nonce.
@@ -92,4 +98,11 @@ public interface TransactionInterface {
      * @return True if this transaction creates a new contract.
      */
     boolean isContractCreationTransaction();
+
+    /**
+     * Returns the kind of the corresponding transaction. For example, CREATE or CALL.
+     *
+     * @return The transaction kind.
+     */
+    byte getKind();
 }

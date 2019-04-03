@@ -69,5 +69,12 @@ public interface TransactionResult {
      */
     void setEnergyRemaining(long energyRemaining);
 
+    /**
+     * Returns the side-effects that were the result of executing the corresponding transaction.
+     *
+     * @return The execution side-effects of the transaction.
+     */
+    TransactionSideEffects getSideEffects();
+
     byte[] toBytes();
 }
