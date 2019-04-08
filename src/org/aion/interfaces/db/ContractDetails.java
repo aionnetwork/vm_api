@@ -56,6 +56,21 @@ public interface ContractDetails {
     void setCode(byte[] code);
 
     /**
+     * Returns the transformed code of the vm contract by giving the codeHash of the deploy code.
+     *
+     * @return the transformed jvm byte code.
+     */
+    byte[] getTransformedCode();
+
+    /**
+     * Puts the transformed code of the vm contract by giving the codeHash of the deploy code.
+     *
+     * @param transformedCode the code of the transformed code.
+     */
+    void setTransformedCode(byte[] transformedCode);
+
+
+    /**
      * Returns the storage hash.
      *
      * @return the storage hash.

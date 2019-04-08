@@ -98,4 +98,12 @@ public interface Repository<AS, BSB> extends RepositoryQuery<AS> {
     void removeTxBatch(Set<byte[]> pendingTx, boolean isPool);
 
     byte getVMUsed(Address contract);
+
+    /**
+     * Set the transformed code to the account associated with the given address.
+     *
+     * @param address the address of the account of interest
+     * @param code the transformed code
+     */
+    void setTransformedCode(Address address, byte[] code);
 }

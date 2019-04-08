@@ -94,20 +94,35 @@ public interface KernelInterface {
     boolean hasAccountState(Address address);
 
     /**
-     * Sets the code of an account.
-     *
-     * @param address the account address
-     * @param code the immortal code
-     */
-    void putCode(Address address, byte[] code);
-
-    /**
      * Retrieves the code of an account.
      *
      * @param address the account address
      * @return the code of the account, or NULL if not exists.
      */
     byte[] getCode(Address address);
+
+    /**
+     * Sets the code of an account.
+     *
+     * @param address the account address
+     * @param code the deploy code
+     */
+    void putCode(Address address, byte[] code);
+
+    /**
+     * Get an transformed code of the VM contract.
+     *
+     * @param address the account address
+     * @return the transformed code.
+     */
+    byte[] getTransformedCode(Address address);
+
+    /**
+     * Set the transformed code of the VM contract
+     *
+     * @param code the transformed code.
+     */
+    void setTransformedCode(Address address, byte[] code);
 
     /**
      * Saves the object graph for the given contract into contract storage.

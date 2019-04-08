@@ -89,6 +89,14 @@ public interface RepositoryQuery<AS> {
      */
     byte[] getCode(Address address);
 
+    /**
+     * Retrieves the transformed code for the account associated with the given address.
+     *
+     * @param address the address of the account of interest
+     * @return the transformed code associated to the account in {@code byte} array format
+     */
+    byte[] getTransformedCode(Address address);
+
     // getters relating to storage
     // -------------------------------------------------------------------------------------
 
