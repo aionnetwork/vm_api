@@ -74,7 +74,7 @@ public interface ContractDetails {
      *
      * @return the transaction type used to deploy the contract indicating which VM was used
      */
-    byte getVmType();
+    InternalVmType getVmType();
 
     /**
      * Sets the transaction type value used to deploy the contract symbolizing the VM that manages
@@ -83,7 +83,7 @@ public interface ContractDetails {
      * @param vmType the transaction type value used to deploy the contract symbolizing the VM that
      *     manages the contract
      */
-    void setVmType(byte vmType);
+    void setVmType(InternalVmType vmType);
 
     /**
      * Returns a byte array from contract storage representing an encoding of the object graph for

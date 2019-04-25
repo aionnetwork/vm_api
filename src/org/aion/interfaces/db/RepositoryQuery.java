@@ -95,7 +95,7 @@ public interface RepositoryQuery<AS> {
      *
      * @return the transaction type used to deploy the contract indicating which VM was used
      */
-    byte getVmType(Address contract);
+    InternalVmType getVmType(Address contract);
 
     /**
      * Returns a byte array from contract storage representing an encoding of the object graph for

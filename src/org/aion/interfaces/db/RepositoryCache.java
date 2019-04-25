@@ -71,7 +71,7 @@ public interface RepositoryCache<AS, BSB> extends Repository<AS, BSB> {
      * @param vmType the transaction type value used to deploy the contract symbolizing the VM that
      *     manages the contract
      */
-    void saveVmType(Address contract, byte vmType);
+    void saveVmType(Address contract, InternalVmType vmType);
 
     /**
      * Saves the object graph for the given contract into contract storage.
