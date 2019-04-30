@@ -17,15 +17,6 @@ package org.aion.vm.api.interfaces;
  */
 public interface InternalTransactionInterface extends TransactionInterface {
 
-    // TODO: still need to determine which of these methods are API-level and which are not.
-
-    /**
-     * Returns the transaction hash of the transaction that spawned this internal transaction.
-     *
-     * @return The hash of this transaction's parent transaction.
-     */
-    byte[] getParentTransactionHash();
-
     /**
      * Returns {@code true} if, and only if, this internal transaction is rejected.
      *
@@ -34,33 +25,8 @@ public interface InternalTransactionInterface extends TransactionInterface {
     boolean isRejected();
 
     /**
-     * Returns the depth of the stack at the time of this internal transaction being spawned.
-     *
-     * @return The stack depth when this transaction is spawned.
-     */
-    int getStackDepth();
-
-    /**
-     * Returns the index of this internal transaction, where the index is the number of ancestors
-     * this internal transaction has. Therefore, if each of these transactions were in a list, this
-     * number would be the index into the list at which this transaction resides.
-     *
-     * @return The index of this transaction.
-     */
-    int getIndexOfInternalTransaction();
-
-    /**
-     * Returns a note attached to this transaction.
-     *
-     * @return A note.
-     */
-    String getNote();
-
-    /**
      * Causes this internal transaction to be marked as rejected so that {@code isRejected() ==
      * true}. Once an internal transaction is marked as rejected it cannot be un-marked.
      */
     void markAsRejected();
-
-    byte[] getEncoded();
 }
