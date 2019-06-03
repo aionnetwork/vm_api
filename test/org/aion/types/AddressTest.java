@@ -1,10 +1,10 @@
 package org.aion.types;
 
+import static org.aion.types.TestUtil.hexStringToByteArray;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.aion.util.bytes.ByteUtil;
 import org.junit.Test;
 
 public class AddressTest {
@@ -22,11 +22,11 @@ public class AddressTest {
     private final byte[][] addrByte = { // Changes every time
         null,
         new byte[0],
-        ByteUtil.hexStringToBytes(addrHex[2]),
-        ByteUtil.hexStringToBytes(addrHex[3]),
-        ByteUtil.hexStringToBytes(addrHex[4]),
+        hexStringToByteArray(addrHex[2]),
+        hexStringToByteArray(addrHex[3]),
+        hexStringToByteArray(addrHex[4]),
         org.aion.types.Address.ZERO_ADDRESS().toBytes(),
-        ByteUtil.hexStringToBytes(addrHex[6])
+        hexStringToByteArray(addrHex[6]),
     };
 
     private final ByteArrayWrapper[] addrArray = { // Same as addrHex

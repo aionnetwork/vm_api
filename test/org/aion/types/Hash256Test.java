@@ -1,11 +1,11 @@
 package org.aion.types;
 
+import static org.aion.types.TestUtil.hexStringToByteArray;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import org.aion.util.bytes.ByteUtil;
 import org.junit.Test;
 
 public class Hash256Test {
@@ -22,12 +22,12 @@ public class Hash256Test {
 
     private final byte[][] hashByte = { // Changes every time
         null,
-        ByteUtil.hexStringToBytes(hashHex[1]),
-        ByteUtil.hexStringToBytes(hashHex[2]),
-        ByteUtil.hexStringToBytes(hashHex[3]),
-        ByteUtil.hexStringToBytes(hashHex[4]),
+        new byte[0],
+        hexStringToByteArray(hashHex[2]),
+        hexStringToByteArray(hashHex[3]),
+        hexStringToByteArray(hashHex[4]),
         Hash256.ZERO_HASH().toBytes(),
-        ByteUtil.hexStringToBytes(hashHex[6])
+        hexStringToByteArray(hashHex[6]),
     };
 
     private final ByteArrayWrapper[] hashArray = { // Same as hashHex

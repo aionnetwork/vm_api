@@ -1,5 +1,6 @@
 package org.aion.types;
 
+import static org.aion.types.TestUtil.hexStringToByteArray;
 import static org.junit.Assert.assertEquals;
 
 import java.nio.ByteBuffer;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.aion.util.bytes.ByteUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ public class ByteArrayWrapperTest {
     public void testWrap(String inputString) {
 
         ByteArrayWrapper tempArray;
-        byte[] inputByte = ByteUtil.hexStringToBytes(inputString);
+        byte[] inputByte = hexStringToByteArray(inputString);
 
         try {
             tempArray = ByteArrayWrapper.wrap(inputByte);

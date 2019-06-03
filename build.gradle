@@ -49,7 +49,6 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'network.aion:util4j:0.4.0'
     testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
 
