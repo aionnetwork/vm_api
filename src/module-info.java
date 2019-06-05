@@ -1,4 +1,5 @@
 module aion.vm.api {
+    requires aion.types;
     exports org.aion.vm.api.interfaces;
     exports org.aion.vm.api.types;
     exports org.aion.interfaces;

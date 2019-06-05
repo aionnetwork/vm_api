@@ -47,7 +47,7 @@ sourceSets {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
-
+    compile files("${rootProject.projectDir}/lib/aion-types-e367876.jar")
     testCompile 'junit:junit:4.12'
     testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
@@ -70,6 +70,7 @@ javadoc {
     classpath = configurations.compile
     options.tags = ["implNote", "apiNote"]
     options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('-module-path', classpath.asPath)
 }
 
 task sourcesJar(type: Jar) {

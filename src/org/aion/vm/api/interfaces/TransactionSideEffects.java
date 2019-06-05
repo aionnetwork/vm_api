@@ -2,7 +2,7 @@ package org.aion.vm.api.interfaces;
 
 import java.util.Collection;
 import java.util.List;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * The side-effects caused by executing some transaction.
@@ -43,7 +43,7 @@ public interface TransactionSideEffects {
      *
      * @param address A new address to be marked for deletion.
      */
-    void addToDeletedAddresses(Address address);
+    void addToDeletedAddresses(AionAddress address);
 
     /**
      * Adds the specified collection of addresses to the set of addresses that this transaction has
@@ -51,7 +51,7 @@ public interface TransactionSideEffects {
      *
      * @param addresses The addresses to be marked for deletion.
      */
-    void addAllToDeletedAddresses(Collection<Address> addresses);
+    void addAllToDeletedAddresses(Collection<AionAddress> addresses);
 
     /**
      * Adds the specified log to the set of logs that this transaction generated.
@@ -79,7 +79,7 @@ public interface TransactionSideEffects {
      *
      * @return The addresses to be deleted.
      */
-    List<Address> getAddressesToBeDeleted();
+    List<AionAddress> getAddressesToBeDeleted();
 
     /**
      * Returns the logs that were fired off as a result of this transaction.

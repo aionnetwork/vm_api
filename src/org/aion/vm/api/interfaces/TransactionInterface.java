@@ -1,6 +1,6 @@
 package org.aion.vm.api.interfaces;
 
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * A transaction.
@@ -21,20 +21,21 @@ public interface TransactionInterface {
      *
      * @return The sender address.
      */
-    Address getSenderAddress();
+    AionAddress getSenderAddress();
 
     /**
      * Returns the address of the account this transaction is destined for.
      *
      * @return The destination address.
      */
-    Address getDestinationAddress();
+    AionAddress getDestinationAddress();
 
     /**
      * Returns the address of the contract that this transaction will create.
      *
      * @return The destination address.
-     */ Address getContractAddress();
+     */
+    AionAddress getContractAddress();
 
     /**
      * Returns the nonce of this transaction, which is the nonce of the sender account.

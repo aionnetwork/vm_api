@@ -2,7 +2,7 @@ package org.aion.interfaces.db;
 
 import java.util.Map;
 import java.util.Set;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * Database-like functionality.
@@ -28,7 +28,7 @@ public interface Repository<AS, BSB> extends RepositoryQuery<AS> {
      * @param contractDetails cached contract details
      */
     void updateBatch(
-            Map<Address, AS> accountStates, Map<Address, ContractDetails> contractDetails);
+            Map<AionAddress, AS> accountStates, Map<AionAddress, ContractDetails> contractDetails);
 
     /** Reverts all the changes performed by this repository. */
     void rollback();
@@ -97,7 +97,7 @@ public interface Repository<AS, BSB> extends RepositoryQuery<AS> {
     /** Performs batch transactions remove. */
     void removeTxBatch(Set<byte[]> pendingTx, boolean isPool);
 
-    InternalVmType getVMUsed(Address contract);
+    InternalVmType getVMUsed(AionAddress contract);
 
     /**
      * Set the transformed code to the account associated with the given address.
@@ -105,5 +105,5 @@ public interface Repository<AS, BSB> extends RepositoryQuery<AS> {
      * @param address the address of the account of interest
      * @param code the transformed code
      */
-    void setTransformedCode(Address address, byte[] code);
+    void setTransformedCode(AionAddress address, byte[] code);
 }

@@ -1,7 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * An interface for a {@link VirtualMachine} into the kernel.
@@ -82,7 +82,7 @@ public interface KernelInterface {
      *
      * @param address The account to create.
      */
-    void createAccount(Address address);
+    void createAccount(AionAddress address);
 
     /**
      * Returns true if, and only if, the specified address has account state. That is, it has a
@@ -91,7 +91,7 @@ public interface KernelInterface {
      * @param address The address whose existence is to be decided.
      * @return True if the account exists.
      */
-    boolean hasAccountState(Address address);
+    boolean hasAccountState(AionAddress address);
 
     /**
      * Retrieves the code of an account.
@@ -99,7 +99,7 @@ public interface KernelInterface {
      * @param address the account address
      * @return the code of the account, or NULL if not exists.
      */
-    byte[] getCode(Address address);
+    byte[] getCode(AionAddress address);
 
     /**
      * Sets the code of an account.
@@ -107,7 +107,7 @@ public interface KernelInterface {
      * @param address the account address
      * @param code the deploy code
      */
-    void putCode(Address address, byte[] code);
+    void putCode(AionAddress address, byte[] code);
 
     /**
      * Get an transformed code of the VM contract.
@@ -115,14 +115,14 @@ public interface KernelInterface {
      * @param address the account address
      * @return the transformed code.
      */
-    byte[] getTransformedCode(Address address);
+    byte[] getTransformedCode(AionAddress address);
 
     /**
      * Set the transformed code of the VM contract
      *
      * @param code the transformed code.
      */
-    void setTransformedCode(Address address, byte[] code);
+    void setTransformedCode(AionAddress address, byte[] code);
 
     /**
      * Saves the object graph for the given contract into contract storage.
@@ -130,7 +130,7 @@ public interface KernelInterface {
      * @param contract the account address
      * @param graph a byte array representing an encoding of the object graph for the given contract
      */
-    void putObjectGraph(Address contract, byte[] graph);
+    void putObjectGraph(AionAddress contract, byte[] graph);
 
     /**
      * Returns a byte array from contract storage representing an encoding of the object graph for
@@ -140,7 +140,7 @@ public interface KernelInterface {
      * @return a byte array from contract storage representing an encoding of the object graph for
      *     the given contract
      */
-    byte[] getObjectGraph(Address contract);
+    byte[] getObjectGraph(AionAddress contract);
 
     /**
      * Put a key-value pair into the account's storage.
@@ -149,7 +149,7 @@ public interface KernelInterface {
      * @param key the storage key
      * @param value the storage value
      */
-    void putStorage(Address address, byte[] key, byte[] value);
+    void putStorage(AionAddress address, byte[] key, byte[] value);
 
     /**
      * Remove a key from the account's storage.
@@ -157,7 +157,7 @@ public interface KernelInterface {
      * @param address the account address
      * @param key the storage key
      */
-    void removeStorage(Address address, byte[] key);
+    void removeStorage(AionAddress address, byte[] key);
 
     /**
      * Get the value that is mapped to the key, for the given account.
@@ -165,14 +165,14 @@ public interface KernelInterface {
      * @param address the account address
      * @param key the storage key
      */
-    byte[] getStorage(Address address, byte[] key);
+    byte[] getStorage(AionAddress address, byte[] key);
 
     /**
      * Deletes an account. This is used to implement the self-destruct functionality.
      *
      * @param address the account address
      */
-    void deleteAccount(Address address);
+    void deleteAccount(AionAddress address);
 
     /**
      * Returns the balance of an account.
@@ -180,7 +180,7 @@ public interface KernelInterface {
      * @param address the account address
      * @return The balance of the specified address.
      */
-    BigInteger getBalance(Address address);
+    BigInteger getBalance(AionAddress address);
 
     /**
      * Adds/removes the balance of an account.
@@ -188,7 +188,7 @@ public interface KernelInterface {
      * @param address the account address
      * @param delta the change
      */
-    void adjustBalance(Address address, BigInteger delta);
+    void adjustBalance(AionAddress address, BigInteger delta);
 
     /**
      * Returns the nonce of an account.
@@ -196,14 +196,14 @@ public interface KernelInterface {
      * @param address the account address
      * @return the nonce
      */
-    BigInteger getNonce(Address address);
+    BigInteger getNonce(AionAddress address);
 
     /**
      * Increases the nonce of an account by 1.
      *
      * @param address the account address
      */
-    void incrementNonce(Address address);
+    void incrementNonce(AionAddress address);
 
     // TODO: can deduct & refund remove 'address' param and always use 'sender' (what about
     // delegatecall?)
@@ -214,7 +214,7 @@ public interface KernelInterface {
      * @param address The address that will pay for the specified energy cost.
      * @param energyCost The energy cost.
      */
-    void deductEnergyCost(Address address, BigInteger energyCost);
+    void deductEnergyCost(AionAddress address, BigInteger energyCost);
 
     /**
      * Refunds {@code amount} amount of Aion to the specified address.
@@ -222,7 +222,7 @@ public interface KernelInterface {
      * @param address The address that will receive the refund.
      * @param amount The amount to refund.
      */
-    void refundAccount(Address address, BigInteger amount);
+    void refundAccount(AionAddress address, BigInteger amount);
 
     // TODO: should be able to remove address param from payMiningFee and grab the coinbase behind
     // the scenes.
@@ -233,7 +233,7 @@ public interface KernelInterface {
      * @param miner The address of the miner.
      * @param fee The mining fee.
      */
-    void payMiningFee(Address miner, BigInteger fee);
+    void payMiningFee(AionAddress miner, BigInteger fee);
 
     /**
      * Returns the hash of the block whose block number is {@code blockNumber}.
@@ -251,7 +251,7 @@ public interface KernelInterface {
      * @param nonce The nonce to compare against the account's nonce.
      * @return True if the nonce of the address equals the given nonce.
      */
-    boolean accountNonceEquals(Address address, BigInteger nonce);
+    boolean accountNonceEquals(AionAddress address, BigInteger nonce);
 
     /**
      * Returns {@code true} if, and only if, the specified address has funds that are greater than
@@ -261,7 +261,7 @@ public interface KernelInterface {
      * @param amount The amount to compare against the account's balance.
      * @return True if the balance of the account is {@code >=} amount.
      */
-    boolean accountBalanceIsAtLeast(Address address, BigInteger amount);
+    boolean accountBalanceIsAtLeast(AionAddress address, BigInteger amount);
 
     /**
      * Returns {@code true} if, and only if, the specified energy limit is a valid quantity for a
@@ -306,7 +306,7 @@ public interface KernelInterface {
      * @param address The address of a smart contract.
      * @return True if this address can be invoked from the calling {@link VirtualMachine}.
      */
-    boolean destinationAddressIsSafeForThisVM(Address address);
+    boolean destinationAddressIsSafeForThisVM(AionAddress address);
 
     /**
      * Returns the number of the block that this kernel interface is at.
@@ -343,5 +343,5 @@ public interface KernelInterface {
      *
      * @return The miner's address.
      */
-    Address getMinerAddress();
+    AionAddress getMinerAddress();
 }

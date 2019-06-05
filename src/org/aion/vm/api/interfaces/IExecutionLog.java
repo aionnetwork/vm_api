@@ -1,12 +1,12 @@
 package org.aion.vm.api.interfaces;
 
 import java.util.List;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * A log that is emitted during the execution of a transaction.
  *
- * <p>The source of an execution log is the {@link Address} of the smart contract in which this log
+ * <p>The source of an execution log is the {@link AionAddress} of the smart contract in which this log
  * event was triggered.
  *
  * <p>Each log has a list of topics and some data.
@@ -14,12 +14,12 @@ import org.aion.vm.api.types.Address;
 public interface IExecutionLog {
 
     /**
-     * Returns the {@link Address} of the smart contract in which this log event was triggered
+     * Returns the {@link AionAddress} of the smart contract in which this log event was triggered
      * inside.
      *
      * @return The contract whose logic triggered this logging event.
      */
-    Address getSourceAddress();
+    AionAddress getSourceAddress();
 
     /**
      * Returns a list of all the topics associated with this log.

@@ -1,7 +1,7 @@
 package org.aion.vm.api.interfaces;
 
 import java.math.BigInteger;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /**
  * The contextual information required by a {@link VirtualMachine} relating to a specific
@@ -32,14 +32,14 @@ public interface TransactionContext {
      *
      * @return The transaction destination address or null if no destination.
      */
-    Address getDestinationAddress();
+    AionAddress getDestinationAddress();
 
     /**
      * Returns the address of the account that sent this transaction.
      *
      * @return The sender address.
      */
-    Address getSenderAddress();
+    AionAddress getSenderAddress();
 
     /**
      * Returns the address of the account that sent the original external transaction to which
@@ -47,14 +47,14 @@ public interface TransactionContext {
      *
      * @return The origin address.
      */
-    Address getOriginAddress();
+    AionAddress getOriginAddress();
 
     /**
      * Returns the address of the miner.
      *
      * @return The miner's address.
      */
-    Address getMinerAddress();
+    AionAddress getMinerAddress();
 
     /**
      * Returns the amount of value to be transferred by the corresponding transaction.
@@ -158,7 +158,7 @@ public interface TransactionContext {
 
     void setTransactionHash(byte[] hash);
 
-    void setDestinationAddress(Address address);
+    void setDestinationAddress(AionAddress address);
 
     byte[] toBytes();
 }

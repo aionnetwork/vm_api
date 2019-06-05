@@ -1,6 +1,6 @@
 package org.aion.interfaces.block;
 
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 
 /** @author jay */
 public interface BlockHeader {
@@ -24,14 +24,14 @@ public interface BlockHeader {
 
     byte[] getEncoded();
 
-    Address getCoinbase();
+    AionAddress getCoinbase();
 
     long getTimestamp();
 
     long getNumber();
 
     // Setter
-    void setCoinbase(Address _cb);
+    void setCoinbase(AionAddress _cb);
 
     void setStateRoot(byte[] _strt);
 

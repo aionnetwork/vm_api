@@ -2,7 +2,7 @@ package org.aion.interfaces.db;
 
 import java.util.Collection;
 import java.util.Map;
-import org.aion.vm.api.types.Address;
+import org.aion.types.AionAddress;
 import org.aion.vm.api.types.ByteArrayWrapper;
 
 public interface ContractDetails {
@@ -191,14 +191,14 @@ public interface ContractDetails {
      *
      * @return the associated address.
      */
-    Address getAddress();
+    AionAddress getAddress();
 
     /**
      * Sets the associated address to address.
      *
      * @param address The address to set.
      */
-    void setAddress(Address address);
+    void setAddress(AionAddress address);
 
     /**
      * Returns a string representation of this ContractDetails.
