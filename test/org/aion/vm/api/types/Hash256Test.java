@@ -1,15 +1,16 @@
-package org.aion.types;
+package org.aion.vm.api.types;
 
-import static org.aion.types.TestUtil.hexStringToByteArray;
+import static org.aion.vm.api.types.TestUtil.hexStringToByteArray;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import org.junit.Test;
 
-public class AddressTest {
+public class Hash256Test {
 
-    private final String[] addrHex = {
+    private final String[] hashHex = {
         null, // 0 - Null
         "", // 1 - Empty
         "eE55fF66eE55fF66eE55fF66eE55fF66", // 2 - Short
@@ -19,111 +20,105 @@ public class AddressTest {
         "0000000000000000000000000000000000000000000000000000000000000001", // 6 - Positive (+1)
     };
 
-    private final byte[][] addrByte = { // Changes every time
+    private final byte[][] hashByte = { // Changes every time
         null,
         new byte[0],
-        hexStringToByteArray(addrHex[2]),
-        hexStringToByteArray(addrHex[3]),
-        hexStringToByteArray(addrHex[4]),
-        org.aion.types.Address.ZERO_ADDRESS().toBytes(),
-        hexStringToByteArray(addrHex[6]),
+        hexStringToByteArray(hashHex[2]),
+        hexStringToByteArray(hashHex[3]),
+        hexStringToByteArray(hashHex[4]),
+        Hash256.ZERO_HASH().toBytes(),
+        hexStringToByteArray(hashHex[6]),
     };
 
-    private final ByteArrayWrapper[] addrArray = { // Same as addrHex
+    private final ByteArrayWrapper[] hashArray = { // Same as hashHex
         null,
         new ByteArrayWrapper(new byte[0]),
-        new ByteArrayWrapper(addrByte[2]),
-        new ByteArrayWrapper(addrByte[3]),
-        new ByteArrayWrapper(addrByte[4]),
+        new ByteArrayWrapper(hashByte[2]),
+        new ByteArrayWrapper(hashByte[3]),
+        new ByteArrayWrapper(hashByte[4]),
         new ByteArrayWrapper(new byte[32]),
-        new ByteArrayWrapper(addrByte[6])
+        new ByteArrayWrapper(hashByte[6])
     };
 
     /**
-     * Test address wrap function for each input type; String(Hex), Byte, ByteArrayWrapper For each
-     * input type: 1. Wrap the input data 2. Clone, Convert and Wrap as other input type 3. Assert
-     * they are all equal
+     * Test hash wrap function for each input type; String(Hex), Byte, ByteArrayWrapper For each
+     * input type: 1. Wrap the input data 2. Convert and Wrap as other input type 3. Assert they are
+     * all equal
      */
     @Test
     public void testWrap() {
 
-        org.aion.types.Address tempHex;
-        org.aion.types.Address tempByte;
-        org.aion.types.Address tempArray;
+        Hash256 tempHex;
+        Hash256 tempByte;
+        Hash256 tempArray;
 
-        System.out.println("\nHex address test:");
-        for (int a = 0; a < addrHex.length; a++) {
+        System.out.println("\nHex hash test:");
+        for (int a = 0; a < hashHex.length; a++) {
             try {
-                tempHex = Address.wrap(addrHex[a]);
-                tempByte = Address.wrap(tempHex.clone().toBytes());
-                tempArray = Address.wrap(tempHex.clone().toByteArrayWrapper());
+                tempHex = Hash256.wrap(hashHex[a]);
+                tempByte = Hash256.wrap(tempHex.toBytes());
+                tempArray = Hash256.wrap(tempHex.toByteArrayWrapper());
 
                 assertEquals(tempHex, tempByte);
                 assertEquals(tempByte, tempArray);
                 assertEquals(tempArray, tempHex);
-                assertEquals(tempHex.toString(), addrHex[a].toLowerCase());
+                assertEquals(tempHex.toString(), hashHex[a].toLowerCase());
 
                 System.out.println("Test " + a + ": Valid " + tempHex.toString());
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
-            } catch (NullPointerException e) {
-                System.out.println("Test " + a + ": Null");
             }
         }
 
-        System.out.println("\nByte address test:");
-        for (int a = 0; a < addrByte.length; a++) {
+        System.out.println("\nByte hash test:");
+        for (int a = 0; a < hashByte.length; a++) {
             try {
-                tempByte = Address.wrap(addrByte[a]);
-                tempArray = Address.wrap(tempByte.clone().toByteArrayWrapper());
-                tempHex = Address.wrap(tempByte.clone().toString());
+                tempByte = Hash256.wrap(hashByte[a]);
+                tempArray = Hash256.wrap(tempByte.toByteArrayWrapper());
+                tempHex = Hash256.wrap(tempByte.toString());
 
                 assertEquals(tempByte, tempArray);
                 assertEquals(tempArray, tempHex);
                 assertEquals(tempHex, tempByte);
-                // assertEquals(tempByte.toBytes(), addrByte[a]);
+                // assertEquals(tempByte.toBytes(), hashByte[a]);
 
-                System.out.println("Test " + a + ": Valid " + tempByte);
+                System.out.println("Test " + a + ": Valid " + Arrays.toString(tempByte.toBytes()));
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
-            } catch (NullPointerException e) {
-                System.out.println("Test " + a + ": Null");
             }
         }
 
-        System.out.println("\nArray address test:");
-        for (int a = 0; a < addrArray.length; a++) {
+        System.out.println("\nArray hash test:");
+        for (int a = 0; a < hashArray.length; a++) {
             try {
-                tempArray = Address.wrap(addrArray[a]);
-                tempHex = Address.wrap(tempArray.clone().toString());
-                tempByte = Address.wrap(tempArray.clone().toBytes());
+                tempArray = Hash256.wrap(hashArray[a]);
+                tempHex = Hash256.wrap(tempArray.toString());
+                tempByte = Hash256.wrap(tempArray.toBytes());
 
                 assertEquals(tempArray, tempHex);
                 assertEquals(tempHex, tempByte);
                 assertEquals(tempByte, tempArray);
-                assertEquals(tempArray.toByteArrayWrapper(), addrArray[a]);
+                assertEquals(tempArray.toByteArrayWrapper(), hashArray[a]);
 
                 System.out.println("Test " + a + ": Valid " + tempArray.toByteArrayWrapper());
             } catch (IllegalArgumentException e) {
                 System.out.println("Test " + a + ": Invalid");
-            } catch (NullPointerException e) {
-                System.out.println("Test " + a + ": Null");
             }
         }
     }
 
     /**
-     * Test address comparison; A compareTo B For each input type: 1. Wrap the two inputs 2. Assert
+     * Test hash comparison; A compareTo B For each input type: 1. Wrap the two inputs 2. Assert
      * (-ve: A < B && +ve: A > B) 3. Increment Up/Down
      */
     @Test
     public void testCompare() {
 
-        System.out.println("\nHex address test:");
+        System.out.println("\nHex hash test:");
         for (int b = 3; b < 6; b++) {
             try {
-                int temp = Address.wrap(addrHex[b]).compareTo(Address.wrap(addrHex[b + 1]));
-                boolean same = Address.wrap(addrHex[b]).equals(Address.wrap(addrHex[b + 1]));
+                int temp = Hash256.wrap(hashHex[b]).compareTo(Hash256.wrap(hashHex[b + 1]));
+                boolean same = Hash256.wrap(hashHex[b]).equals(Hash256.wrap(hashHex[b + 1]));
                 boolean negative = temp < 0;
                 System.out.println("Test " + b + " & " + (b + 1) + " >> " + temp);
                 assertFalse(same);
@@ -134,8 +129,8 @@ public class AddressTest {
         }
         for (int b = 6; b > 3; b--) {
             try {
-                int temp = Address.wrap(addrHex[b]).compareTo(Address.wrap(addrHex[b - 1]));
-                boolean same = Address.wrap(addrHex[b]).equals(Address.wrap(addrHex[b - 1]));
+                int temp = Hash256.wrap(hashHex[b]).compareTo(Hash256.wrap(hashHex[b - 1]));
+                boolean same = Hash256.wrap(hashHex[b]).equals(Hash256.wrap(hashHex[b - 1]));
                 boolean positive = temp > 0;
                 System.out.println("Test " + b + " & " + (b - 1) + " >> " + temp);
                 assertFalse(same);
@@ -145,11 +140,11 @@ public class AddressTest {
             }
         }
 
-        System.out.println("\nByte address test:");
+        System.out.println("\nByte hash test:");
         for (int b = 3; b < 6; b++) {
             try {
-                int temp = Address.wrap(addrByte[b]).compareTo(addrByte[b + 1]);
-                boolean same = Address.wrap(addrByte[b]).equals(Address.wrap(addrByte[b + 1]));
+                int temp = Hash256.wrap(hashByte[b]).compareTo(Hash256.wrap(hashByte[b + 1]));
+                boolean same = Hash256.wrap(hashByte[b]).equals(Hash256.wrap(hashByte[b + 1]));
                 boolean negative = temp < 0;
                 System.out.println("Test " + b + " & " + (b + 1) + " >> " + temp);
                 assertFalse(same);
@@ -160,8 +155,8 @@ public class AddressTest {
         }
         for (int b = 6; b > 3; b--) {
             try {
-                int temp = Address.wrap(addrByte[b]).compareTo(addrByte[b - 1]);
-                boolean same = Address.wrap(addrByte[b]).equals(Address.wrap(addrByte[b - 1]));
+                int temp = Hash256.wrap(hashByte[b]).compareTo(Hash256.wrap(hashByte[b - 1]));
+                boolean same = Hash256.wrap(hashByte[b]).equals(Hash256.wrap(hashByte[b - 1]));
                 boolean positive = temp > 0;
                 System.out.println("Test " + b + " & " + (b - 1) + " >> " + temp);
                 assertFalse(same);
@@ -171,11 +166,15 @@ public class AddressTest {
             }
         }
 
-        System.out.println("\nArray address test:");
+        System.out.println("\nArray hash test:");
         for (int b = 3; b < 6; b++) {
             try {
-                int temp = Address.wrap(addrArray[b]).compareTo(Address.wrap(addrArray[b + 1]));
-                boolean same = Address.wrap(addrArray[b]).equals(Address.wrap(addrArray[b + 1]));
+                int temp =
+                        Hash256.wrap(hashArray[b])
+                                .compareTo(Hash256.wrap(hashArray[b + 1]));
+                boolean same =
+                        Hash256.wrap(hashArray[b])
+                                .equals(Hash256.wrap(hashArray[b + 1]));
                 boolean negative = temp < 0;
                 System.out.println("Test " + b + " & " + (b + 1) + " >> " + temp);
                 assertFalse(same);
@@ -186,8 +185,10 @@ public class AddressTest {
         }
         for (int b = 6; b > 3; b--) {
             try {
-                int temp = Address.wrap(addrArray[b]).compareTo(Address.wrap(addrArray[b - 1]));
-                boolean same = Address.wrap(addrArray[b]).equals(Address.wrap(addrArray[b - 1]));
+                int temp = Hash256.wrap(hashArray[b]).compareTo(Hash256.wrap(hashArray[b - 1]));
+                boolean same =
+                        Hash256.wrap(hashArray[b])
+                                .equals(Hash256.wrap(hashArray[b - 1]));
                 boolean positive = temp > 0;
                 System.out.println("Test " + b + " & " + (b - 1) + " >> " + temp);
                 assertFalse(same);

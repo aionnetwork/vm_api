@@ -1,7 +1,7 @@
 package org.aion.interfaces.vm;
 
 import java.math.BigInteger;
-import org.aion.types.ByteArrayWrapper;
+import org.aion.vm.api.types.ByteArrayWrapper;
 
 public interface DataWord {
 

@@ -1,8 +1,8 @@
 package org.aion.interfaces.db;
 
 import java.math.BigInteger;
-import org.aion.types.Address;
-import org.aion.types.ByteArrayWrapper;
+import org.aion.vm.api.types.Address;
+import org.aion.vm.api.types.ByteArrayWrapper;
 
 /**
  * Repository interface for individual account additions and updates.

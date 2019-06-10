@@ -2,7 +2,7 @@ package org.aion.interfaces.db;
 
 import java.util.Map;
 import java.util.Set;
-import org.aion.types.Address;
+import org.aion.vm.api.types.Address;
 
 /**
  * Database-like functionality.

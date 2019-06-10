@@ -1,7 +1,6 @@
 package org.aion.interfaces.tx;
 
 import java.math.BigInteger;
-import org.aion.types.Address;
 import org.aion.vm.api.interfaces.TransactionInterface;
 
 public interface Transaction extends Cloneable, TransactionInterface {

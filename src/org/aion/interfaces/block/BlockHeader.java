@@ -1,6 +1,6 @@
 package org.aion.interfaces.block;
 
-import org.aion.types.Address;
+import org.aion.vm.api.types.Address;
 
 /** @author jay */
 public interface BlockHeader {

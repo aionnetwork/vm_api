@@ -2,7 +2,7 @@ package org.aion.vm.api.interfaces;
 
 import java.util.Collection;
 import java.util.List;
-import org.aion.types.Address;
+import org.aion.vm.api.types.Address;
 
 /**
  * The side-effects caused by executing some transaction.

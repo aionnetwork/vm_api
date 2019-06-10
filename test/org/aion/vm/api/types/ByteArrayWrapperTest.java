@@ -1,6 +1,6 @@
-package org.aion.types;
+package org.aion.vm.api.types;
 
-import static org.aion.types.TestUtil.hexStringToByteArray;
+import static org.aion.vm.api.types.TestUtil.hexStringToByteArray;
 import static org.junit.Assert.assertEquals;
 
 import java.nio.ByteBuffer;

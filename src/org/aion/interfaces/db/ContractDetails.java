@@ -2,8 +2,8 @@ package org.aion.interfaces.db;
 
 import java.util.Collection;
 import java.util.Map;
-import org.aion.types.Address;
-import org.aion.types.ByteArrayWrapper;
+import org.aion.vm.api.types.Address;
+import org.aion.vm.api.types.ByteArrayWrapper;
 
 public interface ContractDetails {
 

@@ -4,8 +4,8 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.aion.types.Address;
-import org.aion.types.ByteArrayWrapper;
+import org.aion.vm.api.types.Address;
+import org.aion.vm.api.types.ByteArrayWrapper;
 
 /** Repository interface for information retrieval. */
 public interface RepositoryQuery<AS> {
