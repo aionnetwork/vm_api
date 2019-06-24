@@ -47,7 +47,7 @@ sourceSets {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compile files("${rootProject.projectDir}/lib/aion-types-e367876.jar")
+    compile files("${rootProject.projectDir}/lib/aion-types-d6eb8f7.jar")
     testCompile 'junit:junit:4.12'
     testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
