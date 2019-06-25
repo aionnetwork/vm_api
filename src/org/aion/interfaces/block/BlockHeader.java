@@ -2,6 +2,8 @@ package org.aion.interfaces.block;
 
 import org.aion.types.AionAddress;
 
+import java.math.BigInteger;
+
 /** @author jay */
 public interface BlockHeader {
 
@@ -50,4 +52,12 @@ public interface BlockHeader {
     void setExtraData(byte[] _ed);
 
     boolean isGenesis();
+
+    byte[] getDifficulty();
+
+    BigInteger getDifficultyBI();
+
+    void setDifficulty(byte[] _diff);
+
+    byte[] getPowBoundary();
 }
