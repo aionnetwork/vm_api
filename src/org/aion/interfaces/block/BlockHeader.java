@@ -20,8 +20,6 @@ public interface BlockHeader {
 
     byte[] getExtraData();
 
-    byte[] getNonce();
-
     byte[] getHash();
 
     byte[] getEncoded();
@@ -45,8 +43,6 @@ public interface BlockHeader {
 
     void setNumber(long _nb);
 
-    void setNonce(byte[] _nc);
-
     void setLogsBloom(byte[] _lb);
 
     void setExtraData(byte[] _ed);
@@ -58,6 +54,4 @@ public interface BlockHeader {
     BigInteger getDifficultyBI();
 
     void setDifficulty(byte[] _diff);
-
-    byte[] getPowBoundary();
 }
