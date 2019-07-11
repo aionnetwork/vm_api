@@ -32,4 +32,6 @@ public interface Block<TX extends Transaction, BH extends BlockHeader> {
     byte[] getReceiptsRoot();
 
     long getTimestamp();
+
+    byte[] getStateRoot();
 }
